@@ -1,0 +1,81 @@
+{
+  "name": "@cprussin/eslint-config",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A set of strict base eslint configs",
+  "keywords": [
+    "eslint",
+    "flat",
+    "config"
+  ],
+  "homepage": "https://www.cprussin.net/modules/_cprussin_eslint_config.html",
+  "bugs": "https://github.com/cprussin/cprussin-monorepo/issues",
+  "license": "MIT",
+  "author": {
+    "name": "Connor Prussin",
+    "email": "connor@prussin.net",
+    "url": "https://connor.prussin.net"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cprussin/cprussin-monorepo.git",
+    "directory": "packages/eslint-config"
+  },
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/esm/index.js",
+  "exports": {
+    "import": "./dist/esm/index.js"
+  },
+  "scripts": {
+    "build:declaration": "tsc --project tsconfig.build.json --emitDeclarationOnly --declaration --outDir ./dist",
+    "build:esm": "tsc --project tsconfig.build.json --outDir ./dist/esm",
+    "build:license": "mkdir -p dist && cp ../../LICENSE ./dist",
+    "build:package-json": "transform-package-json ./package.json dist/package.json",
+    "build:readme": "typedoc --plugin typedoc-plugin-markdown --cleanOutputDir false --hideBreadcrumbs true --out dist",
+    "fix:format": "prettier --write .",
+    "fix:lint": "eslint --fix .",
+    "test:format": "jest --selectProjects format",
+    "test:integration": "jest --selectProjects integration",
+    "test:lint": "jest --selectProjects lint",
+    "test:types": "tsc"
+  },
+  "dependencies": {
+    "@babel/core": "^7.21.8",
+    "@babel/eslint-parser": "^7.21.8",
+    "@babel/plugin-syntax-import-assertions": "^7.20.0",
+    "@eslint/eslintrc": "^2.0.2",
+    "@eslint/js": "^8.39.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.2",
+    "@typescript-eslint/parser": "^5.59.2",
+    "eslint": "^8.39.0",
+    "eslint-config-next": "^13.4.1",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-turbo": "^1.9.3",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jest": "^27.2.1",
+    "eslint-plugin-jest-dom": "^4.0.3",
+    "eslint-plugin-jsonc": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-testing-library": "^5.10.3",
+    "eslint-plugin-tsdoc": "^0.2.17",
+    "eslint-plugin-unicorn": "^46.0.0",
+    "globals": "^13.20.0",
+    "jsonc-eslint-parser": "^2.2.0",
+    "typescript": "^5.0.4"
+  },
+  "devDependencies": {
+    "@cprussin/transform-package-json": "workspace:*",
+    "@cprussin/tsconfig": "workspace:*",
+    "@types/eslint": "latest",
+    "@types/jest": "latest",
+    "@types/node": "latest",
+    "eslint": "latest",
+    "jest": "latest",
+    "prettier": "latest",
+    "ts-morph": "latest",
+    "typedoc-plugin-markdown": "latest"
+  }
+}

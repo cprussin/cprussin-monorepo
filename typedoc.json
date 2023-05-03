@@ -1,0 +1,11 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "out": "./docs",
+  "entryPoints": ["packages/*"],
+  "name": "@cprussin",
+  "entryPointStrategy": "packages",
+  "media": "media",
+  "navigationLinks": {
+    "Github": "https://github.com/cprussin/cprussin-monorepo"
+  }
+}

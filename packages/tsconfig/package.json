@@ -1,0 +1,47 @@
+{
+  "name": "@cprussin/tsconfig",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A set of strict shared typescript configs",
+  "keywords": [
+    "typescript",
+    "tsc",
+    "tsconfig",
+    "config"
+  ],
+  "homepage": "https://www.cprussin.net/modules/_cprussin_tsconfig.html",
+  "bugs": "https://github.com/cprussin/cprussin-monorepo/issues",
+  "license": "MIT",
+  "author": {
+    "name": "Connor Prussin",
+    "email": "connor@prussin.net",
+    "url": "https://connor.prussin.net"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cprussin/cprussin-monorepo.git",
+    "directory": "packages/tsconfig"
+  },
+  "type": "module",
+  "scripts": {
+    "build:copy-configs": "mkdir -p dist && cp src/*.json dist",
+    "build:license": "mkdir -p dist && cp ../../LICENSE ./dist",
+    "build:package-json": "transform-package-json ./package.json dist/package.json",
+    "build:readme": "typedoc --plugin typedoc-plugin-markdown --cleanOutputDir false --hideBreadcrumbs true --out dist",
+    "fix:format": "prettier --write .",
+    "fix:lint": "eslint --fix .",
+    "test:format": "jest --selectProjects format",
+    "test:integration": "jest --selectProjects integration",
+    "test:lint": "jest --selectProjects lint",
+    "test:types": "tsc"
+  },
+  "devDependencies": {
+    "@cprussin/transform-package-json": "workspace:*",
+    "@types/node": "latest",
+    "@types/jest": "latest",
+    "eslint": "latest",
+    "jest": "latest",
+    "prettier": "latest",
+    "typedoc-plugin-markdown": "latest"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "name": "@cprussin/prettier-config",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A shared prettier config (currently empty)",
+  "keywords": [
+    "prettier",
+    "config"
+  ],
+  "homepage": "https://www.cprussin.net/modules/_cprussin_prettier_config.html",
+  "bugs": "https://github.com/cprussin/cprussin-monorepo/issues",
+  "license": "MIT",
+  "author": {
+    "name": "Connor Prussin",
+    "email": "connor@prussin.net",
+    "url": "https://connor.prussin.net"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cprussin/cprussin-monorepo.git",
+    "directory": "packages/prettier-config"
+  },
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "import": "./dist/esm/index.js",
+    "require": "./dist/cjs/index.js"
+  },
+  "scripts": {
+    "build:cjs": "tsc --project tsconfig.build.json --module commonjs --outDir ./dist/cjs && echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json",
+    "build:declaration": "tsc --project tsconfig.build.json --emitDeclarationOnly --declaration --outDir ./dist",
+    "build:esm": "tsc --project tsconfig.build.json --outDir ./dist/esm && echo '{\"type\":\"module\"}' > dist/esm/package.json",
+    "build:license": "mkdir -p dist && cp ../../LICENSE ./dist",
+    "build:package-json": "transform-package-json ./package.json dist/package.json",
+    "build:readme": "typedoc --plugin typedoc-plugin-markdown --cleanOutputDir false --hideBreadcrumbs true --out dist",
+    "fix:format": "prettier --write .",
+    "fix:lint": "eslint --fix .",
+    "test:format": "jest --selectProjects format",
+    "test:integration": "jest --selectProjects integration",
+    "test:lint": "jest --selectProjects lint",
+    "test:types": "tsc"
+  },
+  "devDependencies": {
+    "@cprussin/transform-package-json": "workspace:*",
+    "@cprussin/tsconfig": "workspace:*",
+    "@jest/types": "latest",
+    "@types/jest": "latest",
+    "@types/node": "latest",
+    "eslint": "latest",
+    "jest": "latest",
+    "prettier": "latest",
+    "typedoc-plugin-markdown": "latest",
+    "typescript": "latest"
+  }
+}

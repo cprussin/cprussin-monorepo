@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:docs": "typedoc",
+    "fix:format": "prettier --write .",
+    "fix:lint": "eslint --fix .",
+    "pnpm:devPreinstall": "mkdir -p packages/transform-package-json/dist/cjs/bin && echo '/* Workaround for https://github.com/pnpm/pnpm/issues/1801, see https://github.com/pnpm/cmd-shim/pull/43 */' > packages/transform-package-json/dist/cjs/bin/index.js",
+    "test:format": "jest --selectProjects format",
+    "test:lint": "jest --selectProjects lint"
+  },
+  "devDependencies": {
+    "@changesets/cli": "latest",
+    "@commitlint/cli": "latest",
+    "@commitlint/config-conventional": "latest",
+    "@cprussin/eslint-config": "workspace:*",
+    "@cprussin/jest-config": "workspace:*",
+    "@cprussin/prettier-config": "workspace:*",
+    "eslint": "latest",
+    "jest": "latest",
+    "prettier": "latest",
+    "typedoc": "latest",
+    "typescript": "latest"
+  }
+}

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`integration installs & works 1`] = `
+"
+mocked-root-dir/index.js
+  1:1  error  Unexpected console statement  no-console
+
+✖ 1 problem (1 error, 0 warnings)
+
+"
+`;

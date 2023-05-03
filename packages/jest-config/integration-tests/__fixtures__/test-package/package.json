@@ -1,0 +1,9 @@
+{
+  "name": "test-package",
+  "type": "module",
+  "devDependencies": {
+    "@cprussin/jest-config": "file:../../../dist",
+    "@types/jest": "latest",
+    "jest": "latest"
+  }
+}

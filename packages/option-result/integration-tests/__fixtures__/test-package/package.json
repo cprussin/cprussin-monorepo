@@ -1,0 +1,7 @@
+{
+  "name": "test-package",
+  "type": "module",
+  "dependencies": {
+    "@cprussin/option-result": "file:../../../dist"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "name": "@cprussin/transform-package-json",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A tool to help generate a package.json for publishing.",
+  "keywords": [
+    "package.json",
+    "publish"
+  ],
+  "homepage": "https://www.cprussin.net/modules/_cprussin_transform_package_json.html",
+  "bugs": "https://github.com/cprussin/cprussin-monorepo/issues",
+  "license": "MIT",
+  "author": {
+    "name": "Connor Prussin",
+    "email": "connor@prussin.net",
+    "url": "https://connor.prussin.net"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cprussin/cprussin-monorepo.git",
+    "directory": "packages/transform-package-json"
+  },
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": "./dist/cjs/bin/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "cli": {
+      "import": "./dist/esm/cli.js",
+      "require": "./dist/cjs/cli.js"
+    }
+  },
+  "scripts": {
+    "build:cjs": "tsc --project tsconfig.build.json --module commonjs --outDir ./dist/cjs && echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json",
+    "build:declaration": "tsc --project tsconfig.build.json --emitDeclarationOnly --declaration --outDir ./dist",
+    "build:esm": "tsc --project tsconfig.build.json --outDir ./dist/esm && echo '{\"type\":\"module\"}' > dist/esm/package.json",
+    "build:license": "mkdir -p dist && cp ../../LICENSE ./dist",
+    "build:package-json": "node ./dist/cjs/bin ./package.json dist/package.json",
+    "build:readme": "typedoc --plugin typedoc-plugin-markdown --cleanOutputDir false --hideBreadcrumbs true --out dist",
+    "fix:format": "prettier --write .",
+    "fix:lint": "eslint --fix .",
+    "test:format": "jest --selectProjects format",
+    "test:integration": "jest --selectProjects integration",
+    "test:lint": "jest --selectProjects lint",
+    "test:types": "tsc",
+    "test:unit": "jest --coverage --selectProjects unit"
+  },
+  "dependencies": {
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@types/jest": "latest",
+    "@types/node": "latest",
+    "@types/yargs": "^17.0.24",
+    "eslint": "latest",
+    "jest": "latest",
+    "prettier": "latest",
+    "typedoc-plugin-markdown": "latest",
+    "typescript": "latest"
+  }
+}

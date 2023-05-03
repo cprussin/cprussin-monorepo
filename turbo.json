@@ -1,0 +1,120 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build": {
+      "dependsOn": [
+        "build:cjs",
+        "build:declaration",
+        "build:esm",
+        "build:license",
+        "build:package-json",
+        "build:readme"
+      ]
+    },
+    "build:cjs": {
+      "outputs": ["dist/cjs/**"]
+    },
+    "build:declaration": {
+      "outputs": ["dist/**/*.d.ts"]
+    },
+    "build:esm": {
+      "outputs": ["dist/esm/**"]
+    },
+    "build:license": {
+      "outputs": ["dist/LICENSE"]
+    },
+    "build:package-json": {
+      "outputs": ["dist/package.json"],
+      "dependsOn": ["@cprussin/transform-package-json#build:cjs"]
+    },
+    "build:readme": {
+      "outputs": ["dist/**/*.md"],
+      "dependsOn": ["@cprussin/tsconfig#build:copy-configs"]
+    },
+    "@cprussin/tsconfig#build": {
+      "dependsOn": [
+        "build:copy-configs",
+        "build:declaration",
+        "build:package-json",
+        "build:readme"
+      ]
+    },
+    "@cprussin/tsconfig#build:copy-configs": {
+      "outputs": ["dist/*.json", "!dist/package.json"]
+    },
+    "build:docs": {},
+    "//#build:docs": {
+      "outputs": ["docs/**"]
+    },
+    "fix": {
+      "dependsOn": ["fix:format", "fix:lint"],
+      "cache": false
+    },
+    "//#fix": {
+      "dependsOn": ["//#fix:format", "//#fix:lint"],
+      "cache": false
+    },
+    "fix:format": {
+      "dependsOn": ["fix:lint", "@cprussin/prettier-config#build:cjs"],
+      "cache": false
+    },
+    "//#fix:format": {
+      "dependsOn": ["//#fix:lint", "@cprussin/prettier-config#build:cjs"],
+      "cache": false
+    },
+    "fix:lint": {
+      "dependsOn": ["@cprussin/eslint-config#build:esm"],
+      "cache": false
+    },
+    "//#fix:lint": {
+      "dependsOn": ["@cprussin/eslint-config#build:esm"],
+      "cache": false
+    },
+    "test": {
+      "dependsOn": [
+        "test:format",
+        "test:lint",
+        "test:types",
+        "test:unit",
+        "test:integration"
+      ]
+    },
+    "//#test": {
+      "dependsOn": ["//#test:format", "//#test:lint"]
+    },
+    "test:format": {
+      "dependsOn": [
+        "@cprussin/jest-config#build:esm",
+        "@cprussin/prettier-config#build:cjs"
+      ]
+    },
+    "//#test:format": {
+      "dependsOn": [
+        "@cprussin/jest-config#build:esm",
+        "@cprussin/prettier-config#build:cjs"
+      ]
+    },
+    "test:lint": {
+      "dependsOn": [
+        "@cprussin/jest-config#build:esm",
+        "@cprussin/eslint-config#build:esm"
+      ]
+    },
+    "//#test:lint": {
+      "dependsOn": [
+        "@cprussin/jest-config#build:esm",
+        "@cprussin/eslint-config#build:esm"
+      ]
+    },
+    "test:types": {
+      "dependsOn": ["@cprussin/tsconfig#build:copy-configs"]
+    },
+    "test:unit": {
+      "outputs": ["coverage/**"],
+      "dependsOn": ["@cprussin/jest-config#build:esm"]
+    },
+    "test:integration": {
+      "dependsOn": ["@cprussin/jest-config#build:esm", "build"]
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "name": "@cprussin/option-result",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Yet another Typescript clone of the rust `Option` & `Result` enums.",
+  "keywords": [
+    "option",
+    "result",
+    "maybe",
+    "either",
+    "rust",
+    "error",
+    "exception"
+  ],
+  "homepage": "https://www.cprussin.net/modules/_cprussin_option_result.html",
+  "bugs": "https://github.com/cprussin/cprussin-monorepo/issues",
+  "license": "MIT",
+  "author": {
+    "name": "Connor Prussin",
+    "email": "connor@prussin.net",
+    "url": "https://connor.prussin.net"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cprussin/cprussin-monorepo.git",
+    "directory": "packages/option-result"
+  },
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "import": "./dist/esm/index.js",
+    "require": "./dist/cjs/index.js"
+  },
+  "scripts": {
+    "build:cjs": "tsc --project tsconfig.build.json --module commonjs --outDir ./dist/cjs && echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json",
+    "build:declaration": "tsc --project tsconfig.build.json --emitDeclarationOnly --declaration --outDir ./dist",
+    "build:esm": "tsc --project tsconfig.build.json --outDir ./dist/esm && echo '{\"type\":\"module\"}' > dist/esm/package.json",
+    "build:license": "mkdir -p dist && cp ../../LICENSE ./dist",
+    "build:package-json": "transform-package-json ./package.json dist/package.json",
+    "build:readme": "typedoc --plugin typedoc-plugin-markdown --cleanOutputDir false --hideBreadcrumbs true --out dist",
+    "fix:format": "prettier --write .",
+    "fix:lint": "eslint --fix .",
+    "test:format": "jest --selectProjects format",
+    "test:integration": "jest --selectProjects integration",
+    "test:lint": "jest --selectProjects lint",
+    "test:types": "tsc",
+    "test:unit": "jest --coverage --selectProjects unit"
+  },
+  "devDependencies": {
+    "@cprussin/eslint-config": "workspace:*",
+    "@cprussin/jest-config": "workspace:*",
+    "@cprussin/prettier-config": "workspace:*",
+    "@cprussin/transform-package-json": "workspace:*",
+    "@cprussin/tsconfig": "workspace:*",
+    "@types/jest": "latest",
+    "@types/node": "latest",
+    "eslint": "latest",
+    "jest": "latest",
+    "prettier": "latest",
+    "typedoc-plugin-markdown": "latest",
+    "typescript": "latest"
+  }
+}

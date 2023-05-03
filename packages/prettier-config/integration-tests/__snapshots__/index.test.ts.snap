@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`integration installs & works 1`] = `
+"[warn] index.js
+[warn] pnpm-lock.yaml
+[warn] Code style issues found in 2 files. Forgot to run Prettier?
+"
+`;

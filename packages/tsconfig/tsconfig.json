@@ -1,0 +1,8 @@
+{
+  "extends": "./src/base.json",
+  "exclude": [
+    "node_modules",
+    "dist",
+    "integration-tests/__fixtures__/test-package/index.ts"
+  ]
+}

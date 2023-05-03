@@ -1,0 +1,6 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`integration installs & works 1`] = `
+"index.ts(1,14): error TS2322: Type 'string' is not assignable to type 'number'.
+"
+`;

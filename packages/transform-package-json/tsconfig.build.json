@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "incremental": false
+  },
+  "exclude": ["node_modules", "dist", "integration-tests", "**/*.test.ts"]
+}

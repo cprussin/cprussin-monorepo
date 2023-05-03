@@ -1,0 +1,4 @@
+{
+  "extends": "@cprussin/tsconfig/src/base.json",
+  "exclude": ["node_modules", "dist"]
+}

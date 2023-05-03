@@ -1,0 +1,14 @@
+lockfileVersion: '6.0'
+
+devDependencies:
+  '@cprussin/tsconfig':
+    specifier: file:../../../dist
+    version: file:../../../dist
+
+packages:
+
+  file:../../../dist:
+    resolution: {directory: ../../../dist, type: directory}
+    name: '@cprussin/tsconfig'
+    version: 0.1.0
+    dev: true
