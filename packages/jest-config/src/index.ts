@@ -279,7 +279,7 @@ const config = async (extra: ExtraConfigs): Promise<Config.InitialOptions> =>
       },
     },
     coverageReporters: ["json", "lcov", "text", "cobertura"],
-    collectCoverageFrom: ["<rootDir>/src/**/*"],
+    collectCoverageFrom: ["<rootDir>/src/**/*.(t|j)s?(x)"],
     projects: [
       await withExtra(extra.unit, {
         displayName: {
