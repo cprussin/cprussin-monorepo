@@ -1,6 +1,6 @@
 {
   "name": "@cprussin/jest-config",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "description": "A jest config that sets up runners for unit tests, integration tests, eslint, and prettier",
   "keywords": [
