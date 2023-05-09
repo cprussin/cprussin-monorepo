@@ -1,6 +1,6 @@
 {
   "name": "@cprussin/option-result",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Yet another Typescript clone of the rust `Option` & `Result` enums.",
   "keywords": [
