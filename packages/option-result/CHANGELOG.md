@@ -1,5 +1,11 @@
 # @cprussin/option-result
 
+## 1.0.2
+
+### Patch Changes
+
+- b44d867: Correct type of `Option.wrap`
+
 ## 1.0.1
 
 ### Patch Changes
