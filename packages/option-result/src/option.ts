@@ -93,9 +93,7 @@ export class Option<T extends NonNullable<unknown>> {
    * @see {@link Some}
    * @see {@link None}
    */
-  static wrap<T extends NonNullable<unknown>>(
-    value: T | null | undefined
-  ): Option<T> {
+  static wrap<T>(value: T): Option<NonNullable<T>> {
     return value === null || value === undefined
       ? Option.None()
       : Option.Some(value);
