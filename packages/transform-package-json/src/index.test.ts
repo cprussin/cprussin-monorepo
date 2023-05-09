@@ -120,6 +120,23 @@ describe("transformPackageJsonContents", () => {
   );
 
   itHandlesRelativePathRoot(
+    "exports as a conditional export set with types",
+    "./foo",
+    {
+      exports: {
+        import: { default: "./foo/bar/baz", types: "./foo/bar/baz.d.ts" },
+        require: { default: "./foo/bang", types: "./foo/bang.d.ts" },
+      },
+    },
+    {
+      exports: {
+        import: { default: "./bar/baz", types: "./bar/baz.d.ts" },
+        require: { default: "./bang", types: "./bang.d.ts" },
+      },
+    }
+  );
+
+  itHandlesRelativePathRoot(
     "exports as a record containing some conditional export sets",
     "./foo",
     {

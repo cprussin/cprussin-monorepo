@@ -83,14 +83,11 @@ import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { relative, dirname } from "node:path";
 
 /**
- * The type of a [conditional
- * export](https://nodejs.org/api/packages.html#conditional-exports)
- * declaration.
+ * A type for objects whose values may be `T` or may be objects, which
+ * recursively may have values of type `T` or deeper objects, and so on
+ * @typeParam T - the type of leaf nodes
  */
-export type ConditionalExport = {
-  import: string;
-  require: string;
-};
+type Nested<T> = { [key: string]: T | Nested<T> };
 
 /**
  * A simplified type describing the schema of `package.json` files.  Here we
@@ -100,11 +97,7 @@ export type PackageJson = Record<string, unknown> & {
   main?: string;
   types?: string;
   bin?: string | Record<string, string>;
-  exports?:
-    | string
-    | string[]
-    | ConditionalExport
-    | Record<string, string | ConditionalExport>;
+  exports?: string | string[] | Nested<string>;
 };
 
 /**
@@ -239,13 +232,8 @@ const updateExportsPath = (
   } else if (Array.isArray(exports)) {
     return exports.map((entry) => relativeWithDot(newPathRoot, entry));
   } else {
-    return mapKeys(exports, (entry) =>
-      typeof entry === "string"
-        ? relativeWithDot(newPathRoot, entry)
-        : {
-            import: relativeWithDot(newPathRoot, entry.import),
-            require: relativeWithDot(newPathRoot, entry.require),
-          }
+    return mapStringKeys(exports, (entry) =>
+      relativeWithDot(newPathRoot, entry)
     );
   }
 };
@@ -271,4 +259,12 @@ const mapKeys = <T, U>(
 ): Record<string, U> =>
   Object.fromEntries(
     Object.entries(obj).map(([key, value]) => [key, fn(value)])
+  );
+
+const mapStringKeys = (
+  obj: Nested<string>,
+  fn: (value: string) => string
+): Nested<string> =>
+  mapKeys(obj, (value) =>
+    typeof value === "string" ? fn(value) : mapStringKeys(value, fn)
   );
