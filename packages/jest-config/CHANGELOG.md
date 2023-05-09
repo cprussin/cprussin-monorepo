@@ -1,5 +1,11 @@
 # @cprussin/jest-config
 
+## 1.0.2
+
+### Patch Changes
+
+- c060279: Fix distribution of typescript declarations
+
 ## 1.0.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@cprussin/transform-package-json",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "A tool to help generate a package.json for publishing.",
   "keywords": [
