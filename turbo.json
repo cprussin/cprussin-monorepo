@@ -4,7 +4,6 @@
     "build": {
       "dependsOn": [
         "build:cjs",
-        "build:declaration",
         "build:esm",
         "build:license",
         "build:package-json",
@@ -13,9 +12,6 @@
     },
     "build:cjs": {
       "outputs": ["dist/cjs/**"]
-    },
-    "build:declaration": {
-      "outputs": ["dist/**/*.d.ts"]
     },
     "build:esm": {
       "outputs": ["dist/esm/**"]
@@ -32,12 +28,7 @@
       "dependsOn": ["@cprussin/tsconfig#build:copy-configs"]
     },
     "@cprussin/tsconfig#build": {
-      "dependsOn": [
-        "build:copy-configs",
-        "build:declaration",
-        "build:package-json",
-        "build:readme"
-      ]
+      "dependsOn": ["build:copy-configs", "build:package-json", "build:readme"]
     },
     "@cprussin/tsconfig#build:copy-configs": {
       "outputs": ["dist/*.json", "!dist/package.json"]
