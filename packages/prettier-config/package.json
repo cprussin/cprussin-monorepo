@@ -25,12 +25,12 @@
   "types": "./dist/cjs/index.d.ts",
   "exports": {
     "import": {
-      "default": "./dist/esm/index.js",
-      "types": "./dist/esm/index.d.ts"
+      "types": "./dist/esm/index.d.ts",
+      "default": "./dist/esm/index.js"
     },
     "require": {
-      "default": "./dist/cjs/index.js",
-      "types": "./dist/cjs/index.d.ts"
+      "types": "./dist/cjs/index.d.ts",
+      "default": "./dist/cjs/index.js"
     }
   },
   "scripts": {
