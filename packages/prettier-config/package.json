@@ -1,6 +1,6 @@
 {
   "name": "@cprussin/prettier-config",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "description": "A shared prettier config (currently empty)",
   "keywords": [
