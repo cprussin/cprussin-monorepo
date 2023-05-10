@@ -30,8 +30,8 @@
   "types": "./dist/esm/index.d.ts",
   "exports": {
     "import": {
-      "default": "./dist/esm/index.js",
-      "types": "./dist/esm/index.d.ts"
+      "types": "./dist/esm/index.d.ts",
+      "default": "./dist/esm/index.js"
     }
   },
   "scripts": {
