@@ -1,5 +1,11 @@
 # @cprussin/jest-config
 
+## 1.0.3
+
+### Patch Changes
+
+- 4b6249b: Fix ordering of conditional exports
+
 ## 1.0.2
 
 ### Patch Changes
