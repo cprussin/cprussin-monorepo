@@ -114,7 +114,7 @@ packages:
   file:../../../dist:
     resolution: {directory: ../../../dist, type: directory}
     name: '@cprussin/transform-package-json'
-    version: 1.0.0
+    version: 1.0.2
     hasBin: true
     dependencies:
       yargs: 17.7.2
