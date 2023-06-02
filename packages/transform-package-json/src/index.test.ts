@@ -1,4 +1,5 @@
 import { rm, readFile, writeFile, mkdtemp, mkdir } from "node:fs/promises";
+import { tmpdir } from "node:os";
 import { join } from "node:path";
 
 import { transformPackageJsonContents, transformPackageJson } from "./index.js";
@@ -158,7 +159,7 @@ describe("transformPackageJson", () => {
   let tmp: string;
 
   beforeEach(async () => {
-    tmp = await mkdtemp("test-transformPackageJson-");
+    tmp = await mkdtemp(join(tmpdir(), "test-transformPackageJson-"));
   });
 
   afterEach(async () => {

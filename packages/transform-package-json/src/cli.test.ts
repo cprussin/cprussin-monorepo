@@ -1,4 +1,5 @@
 import { rm, readFile, writeFile, mkdtemp, mkdir } from "node:fs/promises";
+import { tmpdir } from "node:os";
 import { join } from "node:path";
 
 import { cli } from "./cli.js";
@@ -7,7 +8,7 @@ describe("cli", () => {
   let tmp: string;
 
   beforeEach(async () => {
-    tmp = await mkdtemp("test-cli-");
+    tmp = await mkdtemp(join(tmpdir(), "test-cli-"));
   });
 
   afterEach(async () => {
