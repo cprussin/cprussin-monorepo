@@ -78,6 +78,5 @@ in
       pkgs.nodePackages.pnpm
       pkgs.nodejs
       pkgs.turbo
-      pkgs.yarn # For installing jest-runner-eslint off my github branch
     ];
   }
