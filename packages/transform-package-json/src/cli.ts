@@ -10,7 +10,7 @@ export const cli = async (
     .scriptName("transform-package-json")
     .command(
       "$0 <source> <dest>",
-      "Transforme SOURCE to DEST",
+      "Transform SOURCE to DEST",
       (yargs) =>
         yargs
           .positional("source", {
@@ -24,13 +24,15 @@ export const cli = async (
             demandOption: true,
           })
           .options({
-            removeType: { type: "boolean", default: false },
+            removeType: {
+              describe:
+                "if set, the `type` field of the `package.json` will be removed as well",
+              type: "boolean",
+              default: false,
+            },
           }),
-      async (parsedArgs) => {
-        await transformPackageJson(parsedArgs.source, parsedArgs.dest, {
-          removeType: parsedArgs.removeType,
-        });
-      }
+      ({ source, dest, removeType }) =>
+        transformPackageJson(source, dest, { removeType })
     )
     .help().argv;
 };
