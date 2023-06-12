@@ -3,7 +3,7 @@ import { rm, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { promisify } from "node:util";
 
-import { FormattedTestResults } from "@jest/test-result";
+import type { FormattedTestResults } from "@jest/test-result";
 
 const ONE_SECOND_IN_MS = 1000;
 

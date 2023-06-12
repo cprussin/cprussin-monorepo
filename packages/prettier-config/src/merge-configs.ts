@@ -1,4 +1,4 @@
-import { Config } from "prettier";
+import type { Config } from "prettier";
 
 /**
  * A simple utility to merge an array of configs together.  Later configs in the

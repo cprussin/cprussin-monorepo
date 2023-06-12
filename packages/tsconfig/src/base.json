@@ -12,7 +12,6 @@
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
     "inlineSources": false,
-    "isolatedModules": true,
     "lib": ["esnext"],
     "module": "nodenext",
     "noEmit": true,
@@ -26,6 +25,7 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "esnext"
+    "target": "esnext",
+    "verbatimModuleSyntax": true
   }
 }
