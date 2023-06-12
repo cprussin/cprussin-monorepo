@@ -52,7 +52,7 @@
     "jest-environment-jsdom": "^29.5.0",
     "jest-runner-eslint": "^2.1.0",
     "jest-runner-prettier": "github:cprussin/jest-runner-prettier#respect-prettierignore",
-    "next": "^13.4.4",
+    "next": "^13.4.5",
     "prettier": "^2.8.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

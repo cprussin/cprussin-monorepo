@@ -33,7 +33,7 @@
  * ```
  */
 
-import { Config } from "prettier";
+import type { Config } from "prettier";
 
 /**
  * Currently the only config. It's literally just an empty object currently. If
