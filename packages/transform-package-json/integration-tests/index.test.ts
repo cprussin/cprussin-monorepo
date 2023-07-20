@@ -28,11 +28,11 @@ describe("integration", () => {
       await execAsync("pnpm --ignore-workspace i", { cwd: TEST_DIR });
       await execAsync(
         "pnpm exec transform-package-json ./package.json ./out.package.json",
-        { cwd: TEST_DIR }
+        { cwd: TEST_DIR },
       );
       const out = await readFile(OUT_PACKAGE_JSON, "utf8");
       expect(out).toMatchSnapshot();
     },
-    30 * ONE_SECOND_IN_MS
+    30 * ONE_SECOND_IN_MS,
   );
 });

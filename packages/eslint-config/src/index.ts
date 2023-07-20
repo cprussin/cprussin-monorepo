@@ -88,7 +88,7 @@ export const base: Linter.FlatConfig[] = [
     "plugin:import/recommended",
     "plugin:unicorn/recommended",
     "prettier",
-    "turbo"
+    "turbo",
   ),
   ...extendForFiles("**/*.ts?(x)", [
     "plugin:@typescript-eslint/recommended",
@@ -218,7 +218,7 @@ export const react: Linter.FlatConfig[] = [
     "plugin:jsx-a11y/recommended",
     "plugin:react-hooks/recommended",
     "plugin:react/jsx-runtime",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
   ),
   ...extendForFiles("**/*.test.[tj]s?(x)", [
     "plugin:jest-dom/recommended",
@@ -235,8 +235,8 @@ const nextConfig: Linter.FlatConfig[] = compat
     ...cfg,
     plugins: Object.fromEntries(
       Object.entries(cfg.plugins ?? {}).filter(
-        (plugin) => plugin[0] !== "import"
-      )
+        (plugin) => plugin[0] !== "import",
+      ),
     ),
   }));
 

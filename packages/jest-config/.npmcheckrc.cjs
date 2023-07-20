@@ -19,7 +19,7 @@ const listResolvedModules = () => {
     .getDescendantsOfKind(ts.SyntaxKind.CallExpression)
     .filter((node) => isResolveNode(node.compilerNode.expression))
     .flatMap((expression) =>
-      normalize(expression.compilerNode.arguments[0].text)
+      normalize(expression.compilerNode.arguments[0].text),
     );
 };
 

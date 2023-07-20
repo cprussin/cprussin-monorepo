@@ -47,19 +47,19 @@ describe("integration", () => {
         {
           cwd: TEST_DIR,
           env: { ...process.env, FORCE_COLOR: "0" },
-        }
+        },
       );
       const testResults = JSON.parse(
-        await readFile(TEST_RESULTS, "utf8")
+        await readFile(TEST_RESULTS, "utf8"),
       ) as PatchedFormattedTestResults;
       expect(normalizeResults(testResults)).toMatchSnapshot();
     },
-    120 * ONE_SECOND_IN_MS
+    120 * ONE_SECOND_IN_MS,
   );
 });
 
 const normalizeResults = (
-  results: PatchedFormattedTestResults
+  results: PatchedFormattedTestResults,
 ): PatchedFormattedTestResults => ({
   ...results,
   startTime: 0,
@@ -76,7 +76,7 @@ const normalizeResults = (
         ...("testFilePath" in assertionResult && {
           testFilePath: assertionResult.testFilePath.replace(
             TEST_DIR,
-            "mocked_root_dir"
+            "mocked_root_dir",
           ),
         }),
       })),

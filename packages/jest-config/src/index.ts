@@ -100,12 +100,13 @@ import { dirname } from "node:path";
 
 import { Config } from "@jest/types";
 import nextJest from "next/jest.js";
-import prettier from "prettier";
+import { getSupportInfo } from "prettier";
 
-const PRETTIER_SUPPORTED_EXTENSIONS = prettier
-  .getSupportInfo()
-  .languages.flatMap((language) => language.extensions ?? [])
-  .map((filename) => filename.replace(/^./, ""));
+const getPrettierSupportedExtensions = async () => {
+  const { languages } = await getSupportInfo();
+
+  return languages.flatMap((language) => language.extensions ?? []);
+};
 
 /**
  * This is the type for values in the optional object that can be passed to each
@@ -115,7 +116,7 @@ const PRETTIER_SUPPORTED_EXTENSIONS = prettier
  * `InitialProjectOptions` (for all other keys) from jest
  */
 export type ExtraConfig<
-  T extends Config.InitialOptions | Config.InitialProjectOptions
+  T extends Config.InitialOptions | Config.InitialProjectOptions,
 > = {
   /**
    * Additional values to spread into the default config.
@@ -199,7 +200,7 @@ const resolve = createRequire(import.meta.url).resolve;
  * @returns the jest config
  */
 export const base = (
-  extra: ExtraConfigs = {}
+  extra: ExtraConfigs = {},
 ): Promise<Config.InitialOptions> =>
   config({
     ...extra,
@@ -253,7 +254,7 @@ export const base = (
  * @returns the jest config
  */
 export const nextjs = (
-  extra: ExtraConfigs = {}
+  extra: ExtraConfigs = {},
 ): Promise<Config.InitialOptions> =>
   config({
     ...extra,
@@ -268,8 +269,10 @@ export const nextjs = (
     },
   });
 
-const config = async (extra: ExtraConfigs): Promise<Config.InitialOptions> =>
-  withExtra(extra.global, {
+const config = async (extra: ExtraConfigs): Promise<Config.InitialOptions> => {
+  const prettierExtensions = await getPrettierSupportedExtensions();
+
+  return withExtra(extra.global, {
     coverageThreshold: {
       global: {
         branches: 0,
@@ -304,10 +307,10 @@ const config = async (extra: ExtraConfigs): Promise<Config.InitialOptions> =>
           color: "white",
         },
         runner: resolve("jest-runner-prettier"),
-        moduleFileExtensions: PRETTIER_SUPPORTED_EXTENSIONS,
-        testMatch: PRETTIER_SUPPORTED_EXTENSIONS.map(
-          (ext) => `<rootDir>/**/*.${ext}`
+        moduleFileExtensions: prettierExtensions.map((ext) =>
+          ext.replace(/\./, ""),
         ),
+        testMatch: prettierExtensions.map((ext) => `**/*${ext}`),
       }),
 
       await withExtra(extra.lint, {
@@ -320,15 +323,16 @@ const config = async (extra: ExtraConfigs): Promise<Config.InitialOptions> =>
       }),
     ],
   });
+};
 
 const withExtra = <
-  T extends Config.InitialOptions | Config.InitialProjectOptions
+  T extends Config.InitialOptions | Config.InitialProjectOptions,
 >(
   extra: ExtraConfig<T> | undefined,
-  arg: T
+  arg: T,
 ): Promise<T> => wrap(extra?.wrapper, { ...arg, ...extra?.config });
 
 const wrap = <T>(
   wrapper: ((value: T) => Promise<T>) | undefined,
-  arg: T
+  arg: T,
 ): Promise<T> => (wrapper === undefined ? Promise.resolve(arg) : wrapper(arg));

@@ -25,10 +25,10 @@ describe("integration", () => {
       await execAsync("pnpm --ignore-workspace i", { cwd: TEST_DIR });
       const { stdout } = await execAsync(
         "pnpm exec tsc --incremental false --pretty false || true",
-        { cwd: TEST_DIR }
+        { cwd: TEST_DIR },
       );
       expect(stdout).toMatchSnapshot();
     },
-    30 * ONE_SECOND_IN_MS
+    30 * ONE_SECOND_IN_MS,
   );
 });

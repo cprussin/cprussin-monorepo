@@ -14,5 +14,5 @@ packages:
   file:../../../dist:
     resolution: {directory: ../../../dist, type: directory}
     name: '@cprussin/prettier-config'
-    version: 1.0.2
+    version: 1.1.0
     dev: false

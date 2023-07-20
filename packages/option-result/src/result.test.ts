@@ -127,7 +127,7 @@ describe("Result", () => {
     describe("with an Err", () => {
       it("returns the fallback value", () => {
         const result = Err(new Error("foo")).unwrapOrElse(
-          (error) => error.message + "bar"
+          (error) => error.message + "bar",
         );
         expect(result).toBe("foobar");
       });
@@ -196,7 +196,7 @@ describe("Result", () => {
     describe("with an Ok", () => {
       it("returns the new Result", async () => {
         const result = await Ok("foo").andThenAsync((value) =>
-          Promise.resolve(Ok(value.length))
+          Promise.resolve(Ok(value.length)),
         );
         expect(result).toStrictEqual(Ok(3));
       });
@@ -260,7 +260,7 @@ describe("Result", () => {
     describe("with an Ok", () => {
       it("returns an Ok", async () => {
         const result = await Ok("foo").orElseAsync(() =>
-          Promise.resolve(Ok("bar"))
+          Promise.resolve(Ok("bar")),
         );
         expect(result).toStrictEqual(Ok("foo"));
       });
@@ -269,7 +269,7 @@ describe("Result", () => {
     describe("with an Err", () => {
       it("returns the new Result", async () => {
         const result = await Err("foo").orElseAsync(() =>
-          Promise.resolve(Ok("bar"))
+          Promise.resolve(Ok("bar")),
         );
         expect(result).toStrictEqual(Ok("bar"));
       });
@@ -295,7 +295,7 @@ describe("Result", () => {
     describe("with an Ok", () => {
       it("returns the mapped value", async () => {
         const result = await Ok("foo").mapAsync((value) =>
-          Promise.resolve(value.length)
+          Promise.resolve(value.length),
         );
         expect(result).toStrictEqual(Ok(3));
       });
@@ -335,7 +335,7 @@ describe("Result", () => {
     describe("with an Err", () => {
       it("returns the mapped value", () => {
         const result = Err(new Error("foo")).mapErr(
-          (error) => error.message.length
+          (error) => error.message.length,
         );
         expect(result).toStrictEqual(Err(3));
       });
@@ -346,7 +346,7 @@ describe("Result", () => {
     describe("with an Ok", () => {
       it("returns an Ok", async () => {
         const newResult = await Ok("foo").mapErrAsync(() =>
-          Promise.resolve("bar")
+          Promise.resolve("bar"),
         );
         expect(newResult).toStrictEqual(Ok("foo"));
       });
@@ -355,7 +355,7 @@ describe("Result", () => {
     describe("with an Err", () => {
       it("returns the mapped value", async () => {
         const result = await Err(new Error("foo")).mapErrAsync((error) =>
-          Promise.resolve(error.message.length)
+          Promise.resolve(error.message.length),
         );
         expect(result).toStrictEqual(Err(3));
       });

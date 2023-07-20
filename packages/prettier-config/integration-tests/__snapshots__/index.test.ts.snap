@@ -3,6 +3,6 @@
 exports[`integration installs & works 1`] = `
 "[warn] index.js
 [warn] pnpm-lock.yaml
-[warn] Code style issues found in 2 files. Forgot to run Prettier?
+[warn] Code style issues found in 2 files. Run Prettier to fix.
 "
 `;

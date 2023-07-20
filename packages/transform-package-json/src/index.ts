@@ -141,7 +141,7 @@ export type Options = {
  */
 export const transformPackageJsonContents = (
   contents: PackageJson,
-  options?: Options
+  options?: Options,
 ): PackageJson => {
   const strippedContents = omit(contents, [
     "devDependencies",
@@ -164,7 +164,7 @@ export const transformPackageJsonContents = (
         ...(contents.exports && {
           exports: updateExportsPath(
             options.relativePathRoot,
-            contents.exports
+            contents.exports,
           ),
         }),
       }
@@ -189,7 +189,7 @@ export const transformPackageJsonContents = (
 export const transformPackageJson = async (
   input: string,
   output: string,
-  options?: Omit<Options, "relativePathRoot">
+  options?: Omit<Options, "relativePathRoot">,
 ): Promise<void> => {
   const oldPackageJson = JSON.parse(await readFile(input, "utf8")) as Record<
     string,
@@ -217,7 +217,7 @@ export const transformPackageJson = async (
 
 const updateBinPaths = (
   newPathRoot: string,
-  exports: NonNullable<PackageJson["bin"]>
+  exports: NonNullable<PackageJson["bin"]>,
 ): NonNullable<PackageJson["bin"]> =>
   typeof exports === "string"
     ? relativeWithDot(newPathRoot, exports)
@@ -225,7 +225,7 @@ const updateBinPaths = (
 
 const updateExportsPath = (
   newPathRoot: string,
-  exports: NonNullable<PackageJson["exports"]>
+  exports: NonNullable<PackageJson["exports"]>,
 ): NonNullable<PackageJson["exports"]> => {
   if (typeof exports === "string") {
     return relativeWithDot(newPathRoot, exports);
@@ -233,7 +233,7 @@ const updateExportsPath = (
     return exports.map((entry) => relativeWithDot(newPathRoot, entry));
   } else {
     return mapStringKeys(exports, (entry) =>
-      relativeWithDot(newPathRoot, entry)
+      relativeWithDot(newPathRoot, entry),
     );
   }
 };
@@ -247,24 +247,24 @@ const relativeWithDot = (from: string, to: string): string => {
 
 const omit = (
   obj: Record<string, unknown>,
-  fields: string[]
+  fields: string[],
 ): Record<string, unknown> =>
   Object.fromEntries(
-    Object.entries(obj).filter(([key]) => !fields.includes(key))
+    Object.entries(obj).filter(([key]) => !fields.includes(key)),
   );
 
 const mapKeys = <T, U>(
   obj: Record<string, T>,
-  fn: (value: T) => U
+  fn: (value: T) => U,
 ): Record<string, U> =>
   Object.fromEntries(
-    Object.entries(obj).map(([key, value]) => [key, fn(value)])
+    Object.entries(obj).map(([key, value]) => [key, fn(value)]),
   );
 
 const mapStringKeys = (
   obj: Nested<string>,
-  fn: (value: string) => string
+  fn: (value: string) => string,
 ): Nested<string> =>
   mapKeys(obj, (value) =>
-    typeof value === "string" ? fn(value) : mapStringKeys(value, fn)
+    typeof value === "string" ? fn(value) : mapStringKeys(value, fn),
   );

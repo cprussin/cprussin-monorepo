@@ -166,7 +166,7 @@ describe("Option", () => {
     describe("with a Some", () => {
       it("returns the new Option", async () => {
         const option = await Some("foo").andThenAsync((value) =>
-          Promise.resolve(Some(value.length))
+          Promise.resolve(Some(value.length)),
         );
         expect(option).toStrictEqual(Some(3));
       });
@@ -175,7 +175,7 @@ describe("Option", () => {
     describe("with a None", () => {
       it("returns a None", async () => {
         const option = await None().andThenAsync(() =>
-          Promise.resolve(Some("bar"))
+          Promise.resolve(Some("bar")),
         );
         expect(option).toStrictEqual(None());
       });
@@ -232,7 +232,7 @@ describe("Option", () => {
       it("returns the Some", async () => {
         const first = Some("foo");
         const option = await first.orElseAsync(() =>
-          Promise.resolve(Some("bar"))
+          Promise.resolve(Some("bar")),
         );
         expect(option).toBe(first);
       });
@@ -241,7 +241,7 @@ describe("Option", () => {
     describe("with a None", () => {
       it("returns the new Option", async () => {
         const option = await None().orElseAsync(() =>
-          Promise.resolve(Some("bar"))
+          Promise.resolve(Some("bar")),
         );
         expect(option).toStrictEqual(Some("bar"));
       });
@@ -294,7 +294,7 @@ describe("Option", () => {
     describe("with a Some", () => {
       it("returns the mapped value", async () => {
         const option = await Some("foo").mapAsync((value) =>
-          Promise.resolve(value.length)
+          Promise.resolve(value.length),
         );
         expect(option).toStrictEqual(Some(3));
       });
@@ -351,7 +351,7 @@ describe("Option", () => {
     describe("with a Some and a Some", () => {
       it("returns a Some of a tuple", () => {
         expect(Some("foo").zip(Some("bar"))).toStrictEqual(
-          Some(["foo", "bar"])
+          Some(["foo", "bar"]),
         );
       });
     });
