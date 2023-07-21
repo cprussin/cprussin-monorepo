@@ -1,5 +1,11 @@
 # @cprussin/option-result
 
+## 1.2.0
+
+### Minor Changes
+
+- 758ae34: Update dependencies
+
 ## 1.1.0
 
 ### Minor Changes
