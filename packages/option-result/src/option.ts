@@ -68,7 +68,7 @@ export class Option<T extends NonNullable<unknown>> {
    * @see {@link unzip}
    */
   static collect<T extends NonNullable<unknown>>(
-    options: Option<T>[]
+    options: Option<T>[],
   ): Option<T[]> {
     const values: T[] = [];
     for (const option of options) {
@@ -150,7 +150,7 @@ export class Option<T extends NonNullable<unknown>> {
        * @returns an arbitrary value
        */
       None: () => U;
-    }
+    },
   ): U {
     return this.data.isSome ? matchers.Some(this.data.value) : matchers.None();
   }
@@ -207,7 +207,7 @@ export class Option<T extends NonNullable<unknown>> {
    */
   andThen<U extends NonNullable<unknown>>(
     this: Option<T>,
-    fn: (value: T) => Option<U>
+    fn: (value: T) => Option<U>,
   ): Option<U> {
     return this.match({
       Some: fn,
@@ -232,7 +232,7 @@ export class Option<T extends NonNullable<unknown>> {
    */
   and<U extends NonNullable<unknown>>(
     this: Option<T>,
-    other: Option<U>
+    other: Option<U>,
   ): Option<U> {
     return this.andThen(() => other);
   }
@@ -257,7 +257,7 @@ export class Option<T extends NonNullable<unknown>> {
    */
   andThenAsync<U extends NonNullable<unknown>>(
     this: Option<T>,
-    fn: (value: T) => Promise<Option<U>>
+    fn: (value: T) => Promise<Option<U>>,
   ): Promise<Option<U>> {
     return this.match({
       Some: fn,
@@ -321,7 +321,7 @@ export class Option<T extends NonNullable<unknown>> {
    */
   orElseAsync(
     this: Option<T>,
-    fn: () => Promise<Option<T>>
+    fn: () => Promise<Option<T>>,
   ): Promise<Option<T>> {
     return this.match({
       Some: () => Promise.resolve(this),
@@ -367,7 +367,7 @@ export class Option<T extends NonNullable<unknown>> {
    */
   map<U extends NonNullable<unknown>>(
     this: Option<T>,
-    fn: (value: T) => U
+    fn: (value: T) => U,
   ): Option<U> {
     return this.andThen((value) => Option.Some(fn(value)));
   }
@@ -393,7 +393,7 @@ export class Option<T extends NonNullable<unknown>> {
    */
   mapAsync<U extends NonNullable<unknown>>(
     this: Option<T>,
-    fn: (value: T) => Promise<U>
+    fn: (value: T) => Promise<U>,
   ): Promise<Option<U>> {
     return this.andThenAsync(async (value) => Option.Some(await fn(value)));
   }
@@ -419,7 +419,7 @@ export class Option<T extends NonNullable<unknown>> {
   mapOr<U extends NonNullable<unknown>>(
     this: Option<T>,
     defaultValue: U,
-    fn: (value: T) => U
+    fn: (value: T) => U,
   ): U {
     return this.map(fn).unwrapOr(defaultValue);
   }
@@ -461,7 +461,7 @@ export class Option<T extends NonNullable<unknown>> {
    */
   zip<U extends NonNullable<unknown>>(
     this: Option<T>,
-    other: Option<U>
+    other: Option<U>,
   ): Option<readonly [T, U]> {
     return this.match({
       Some: (value) => other.map((otherValue) => [value, otherValue]),
@@ -486,7 +486,7 @@ export class Option<T extends NonNullable<unknown>> {
    * @see {@link zip}
    */
   unzip<T extends NonNullable<unknown>, U extends NonNullable<unknown>>(
-    this: Option<readonly [T, U]>
+    this: Option<readonly [T, U]>,
   ): readonly [Option<T>, Option<U>] {
     return this.match({
       Some: (value) => [Option.Some(value[0]), Option.Some(value[1])],
@@ -512,7 +512,7 @@ export class Option<T extends NonNullable<unknown>> {
    */
   okOrElse<E extends NonNullable<unknown>>(
     this: Option<T>,
-    error: () => E
+    error: () => E,
   ): Result<T, E> {
     return this.match({
       Some: (value) => Ok(value),
@@ -536,7 +536,7 @@ export class Option<T extends NonNullable<unknown>> {
    */
   okOr<E extends NonNullable<unknown>>(
     this: Option<T>,
-    error: E
+    error: E,
   ): Result<T, E> {
     return this.okOrElse(() => error);
   }
@@ -557,7 +557,7 @@ export class Option<T extends NonNullable<unknown>> {
    * @see {@link okOrElse}
    */
   transpose<T extends NonNullable<unknown>, E extends NonNullable<unknown>>(
-    this: Option<Result<T, E>>
+    this: Option<Result<T, E>>,
   ): Result<Option<T>, E> {
     return this.match({
       Some: (result) => result.map((value) => Some(value)),

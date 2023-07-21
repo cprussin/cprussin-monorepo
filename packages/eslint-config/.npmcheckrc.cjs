@@ -52,7 +52,7 @@ const listLegacyResolvedEslintDependencies = () => {
     [
       ...getCompatExtendsDependencies(file),
       ...getExtendForFilesDependencies(file),
-    ].map((reference) => toDependency(reference))
+    ].map((reference) => toDependency(reference)),
   );
 };
 

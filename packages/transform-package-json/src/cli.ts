@@ -4,7 +4,7 @@ import { hideBin } from "yargs/helpers";
 import { transformPackageJson } from "./index.js";
 
 export const cli = async (
-  /* istanbul ignore next */ argv: string[] = hideBin(process.argv)
+  /* istanbul ignore next */ argv: string[] = hideBin(process.argv),
 ): Promise<void> => {
   await yargs(argv)
     .scriptName("transform-package-json")
@@ -32,7 +32,7 @@ export const cli = async (
             },
           }),
       ({ source, dest, removeType }) =>
-        transformPackageJson(source, dest, { removeType })
+        transformPackageJson(source, dest, { removeType }),
     )
     .help().argv;
 };

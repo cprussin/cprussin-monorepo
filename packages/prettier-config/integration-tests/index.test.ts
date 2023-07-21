@@ -25,10 +25,10 @@ describe("integration", () => {
       await execAsync("pnpm --ignore-workspace i", { cwd: TEST_DIR });
       const { stderr } = await execAsync(
         "pnpm exec prettier --check . || true",
-        { cwd: TEST_DIR, env: { ...process.env, FORCE_COLOR: "0" } }
+        { cwd: TEST_DIR, env: { ...process.env, FORCE_COLOR: "0" } },
       );
       expect(stderr).toMatchSnapshot();
     },
-    30 * ONE_SECOND_IN_MS
+    30 * ONE_SECOND_IN_MS,
   );
 });

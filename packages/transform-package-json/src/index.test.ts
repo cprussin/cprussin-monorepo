@@ -8,7 +8,7 @@ const itHandlesRelativePathRoot = (
   name: string,
   relativePathRoot: string,
   before: Record<string, unknown>,
-  after: Record<string, unknown>
+  after: Record<string, unknown>,
 ): void => {
   it(`does not update ${name} when not set to update relative paths`, () => {
     const transformed = transformPackageJsonContents(before);
@@ -59,7 +59,7 @@ describe("transformPackageJsonContents", () => {
   it("removes type when not set", () => {
     const transformed = transformPackageJsonContents(
       { foo: "bar", type: "module" },
-      { removeType: true }
+      { removeType: true },
     );
     expect(transformed).toStrictEqual({ foo: "bar" });
   });
@@ -68,56 +68,56 @@ describe("transformPackageJsonContents", () => {
     "main",
     "./foo",
     { main: "./foo/bar/baz" },
-    { main: "./bar/baz" }
+    { main: "./bar/baz" },
   );
 
   itHandlesRelativePathRoot(
     "types",
     "./foo",
     { types: "./bar/baz" },
-    { types: "../bar/baz" }
+    { types: "../bar/baz" },
   );
 
   itHandlesRelativePathRoot(
     "bin as a string",
     "./foo",
     { bin: "./foo/bar/baz" },
-    { bin: "./bar/baz" }
+    { bin: "./bar/baz" },
   );
 
   itHandlesRelativePathRoot(
     "bin as a record",
     "./foo",
     { bin: { foo: "./foo/bar/baz", bar: "./foo/bang" } },
-    { bin: { foo: "./bar/baz", bar: "./bang" } }
+    { bin: { foo: "./bar/baz", bar: "./bang" } },
   );
 
   itHandlesRelativePathRoot(
     "exports as a string",
     "./foo",
     { exports: "./foo/bar/baz" },
-    { exports: "./bar/baz" }
+    { exports: "./bar/baz" },
   );
 
   itHandlesRelativePathRoot(
     "exports as an array",
     "./foo",
     { exports: ["./foo/bar/baz", "./foo/bang"] },
-    { exports: ["./bar/baz", "./bang"] }
+    { exports: ["./bar/baz", "./bang"] },
   );
 
   itHandlesRelativePathRoot(
     "exports as a record",
     "./foo",
     { exports: { foo: "./foo/bar/baz", bar: "./foo/bang" } },
-    { exports: { foo: "./bar/baz", bar: "./bang" } }
+    { exports: { foo: "./bar/baz", bar: "./bang" } },
   );
 
   itHandlesRelativePathRoot(
     "exports as a conditional export set",
     "./foo",
     { exports: { import: "./foo/bar/baz", require: "./foo/bang" } },
-    { exports: { import: "./bar/baz", require: "./bang" } }
+    { exports: { import: "./bar/baz", require: "./bang" } },
   );
 
   itHandlesRelativePathRoot(
@@ -134,7 +134,7 @@ describe("transformPackageJsonContents", () => {
         import: { default: "./bar/baz", types: "./bar/baz.d.ts" },
         require: { default: "./bang", types: "./bang.d.ts" },
       },
-    }
+    },
   );
 
   itHandlesRelativePathRoot(
@@ -151,7 +151,7 @@ describe("transformPackageJsonContents", () => {
         foo: "../bar/baz",
         bar: { import: "./bar/baz", require: "./bang" },
       },
-    }
+    },
   );
 });
 
@@ -188,7 +188,7 @@ describe("transformPackageJson", () => {
         devDependencies: {
           baz: "latest",
         },
-      })
+      }),
     );
     await transformPackageJson(packageJson, packageJsonOut, {
       removeType: true,

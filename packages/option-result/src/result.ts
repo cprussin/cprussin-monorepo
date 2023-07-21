@@ -15,7 +15,7 @@ type _Result<T, E> = Readonly<
  */
 export class Result<
   T extends NonNullable<unknown>,
-  E extends NonNullable<unknown> = Error
+  E extends NonNullable<unknown> = Error,
 > {
   /** @hidden */
   private readonly data: _Result<T, E>;
@@ -39,7 +39,7 @@ export class Result<
    */
   static Ok<
     T extends NonNullable<unknown>,
-    E extends NonNullable<unknown> = Error
+    E extends NonNullable<unknown> = Error,
   >(value: T): Result<T, E> {
     return new Result(_Ok(value));
   }
@@ -58,7 +58,7 @@ export class Result<
    */
   static Err<
     T extends NonNullable<unknown>,
-    E extends NonNullable<unknown> = Error
+    E extends NonNullable<unknown> = Error,
   >(error: E): Result<T, E> {
     return new Result(_Err(error));
   }
@@ -84,7 +84,7 @@ export class Result<
    */
   static collect<
     T extends NonNullable<unknown>,
-    E extends NonNullable<unknown> = Error
+    E extends NonNullable<unknown> = Error,
   >(results: Result<T, E>[]): Result<T[], E> {
     const values: T[] = [];
     for (const result of results) {
@@ -114,7 +114,7 @@ export class Result<
    * @see {@link wrapAsync}
    */
   static wrap<T extends NonNullable<unknown>>(
-    fn: () => T
+    fn: () => T,
   ): Result<T, Option<NonNullable<unknown>>> {
     try {
       return Result.Ok(fn());
@@ -139,7 +139,7 @@ export class Result<
    * @see {@link wrap}
    */
   static async wrapAsync<T extends NonNullable<unknown>>(
-    promise: Promise<T>
+    promise: Promise<T>,
   ): Promise<Result<T, Option<NonNullable<unknown>>>> {
     try {
       return Result.Ok(await promise);
@@ -201,7 +201,7 @@ export class Result<
        * @returns an arbitrary value
        */
       Err: (error: E) => U;
-    }
+    },
   ): U {
     return this.data.isOk
       ? matchers.Ok(this.data.value)
@@ -260,7 +260,7 @@ export class Result<
    */
   andThen<U extends NonNullable<unknown>>(
     this: Result<T, E>,
-    fn: (value: T) => Result<U, E>
+    fn: (value: T) => Result<U, E>,
   ): Result<U, E> {
     return this.match({
       Ok: fn,
@@ -284,7 +284,7 @@ export class Result<
    */
   and<U extends NonNullable<unknown>>(
     this: Result<T, E>,
-    other: Result<U, E>
+    other: Result<U, E>,
   ): Result<U, E> {
     return this.andThen(() => other);
   }
@@ -308,7 +308,7 @@ export class Result<
    */
   andThenAsync<U extends NonNullable<unknown>>(
     this: Result<T, E>,
-    fn: (value: T) => Promise<Result<U, E>>
+    fn: (value: T) => Promise<Result<U, E>>,
   ): Promise<Result<U, E>> {
     return this.match({
       Ok: fn,
@@ -333,7 +333,7 @@ export class Result<
    */
   orElse<F extends NonNullable<unknown> = Error>(
     this: Result<T, E>,
-    fn: (error: E) => Result<T, F>
+    fn: (error: E) => Result<T, F>,
   ): Result<T, F> {
     return this.match({
       Ok: (value) => Result.Ok(value),
@@ -356,7 +356,7 @@ export class Result<
    */
   or<F extends NonNullable<unknown> = Error>(
     this: Result<T, E>,
-    other: Result<T, F>
+    other: Result<T, F>,
   ): Result<T, F> {
     return this.orElse(() => other);
   }
@@ -378,7 +378,7 @@ export class Result<
    */
   orElseAsync<F extends NonNullable<unknown> = Error>(
     this: Result<T, E>,
-    fn: (error: E) => Promise<Result<T, F>>
+    fn: (error: E) => Promise<Result<T, F>>,
   ): Promise<Result<T, F>> {
     return this.match({
       Ok: (value) => Promise.resolve(Result.Ok(value)),
@@ -403,7 +403,7 @@ export class Result<
    */
   map<U extends NonNullable<unknown>>(
     this: Result<T, E>,
-    fn: (value: T) => U
+    fn: (value: T) => U,
   ): Result<U, E> {
     return this.andThen((value) => Ok(fn(value)));
   }
@@ -427,7 +427,7 @@ export class Result<
    */
   mapAsync<U extends NonNullable<unknown>>(
     this: Result<T, E>,
-    fn: (value: T) => Promise<U>
+    fn: (value: T) => Promise<U>,
   ): Promise<Result<U, E>> {
     return this.andThenAsync(async (value) => Ok(await fn(value)));
   }
@@ -451,7 +451,7 @@ export class Result<
   mapOr<U extends NonNullable<unknown>>(
     this: Result<T, E>,
     defaultValue: U,
-    fn: (value: T) => U
+    fn: (value: T) => U,
   ): U {
     return this.map(fn).unwrapOr(defaultValue);
   }
@@ -473,7 +473,7 @@ export class Result<
    */
   mapErr<F extends NonNullable<unknown> = Error>(
     this: Result<T, E>,
-    fn: (error: E) => F
+    fn: (error: E) => F,
   ): Result<T, F> {
     return this.match({
       Ok: (value) => Result.Ok(value),
@@ -500,7 +500,7 @@ export class Result<
    */
   mapErrAsync<F extends NonNullable<unknown> = Error>(
     this: Result<T, E>,
-    fn: (error: E) => Promise<F>
+    fn: (error: E) => Promise<F>,
   ): Promise<Result<T, F>> {
     return this.match({
       Ok: (value) => Promise.resolve(Result.Ok(value)),
@@ -557,7 +557,7 @@ export class Result<
    * @see {@link err}
    */
   transpose<T extends NonNullable<unknown>>(
-    this: Result<Option<T>, E>
+    this: Result<Option<T>, E>,
   ): Option<Result<T, E>> {
     return this.match({
       Ok: (option) => option.map((value) => Result.Ok(value)),
@@ -579,9 +579,9 @@ export class Result<
  */
 export const Ok = <
   T extends NonNullable<unknown>,
-  E extends NonNullable<unknown>
+  E extends NonNullable<unknown>,
 >(
-  value: T
+  value: T,
 ): Result<T, E> => Result.Ok(value);
 
 /**
@@ -597,7 +597,7 @@ export const Ok = <
  */
 export const Err = <
   T extends NonNullable<unknown>,
-  E extends NonNullable<unknown>
+  E extends NonNullable<unknown>,
 >(
-  error: E
+  error: E,
 ): Result<T, E> => Result.Err(error);

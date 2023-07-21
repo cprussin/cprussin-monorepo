@@ -26,6 +26,6 @@ describe("integration", () => {
       const { stdout } = await execAsync("node ./index.js", { cwd: TEST_DIR });
       expect(stdout).toMatchSnapshot();
     },
-    30 * ONE_SECOND_IN_MS
+    30 * ONE_SECOND_IN_MS,
   );
 });

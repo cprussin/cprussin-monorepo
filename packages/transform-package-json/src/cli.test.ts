@@ -37,7 +37,7 @@ describe("cli", () => {
         devDependencies: {
           baz: "latest",
         },
-      })
+      }),
     );
     await cli(["--removeType", packageJson, packageJsonOut]);
     const out = await readFile(packageJsonOut, "utf8");
