@@ -2,4 +2,4 @@
 // best solution here but turbo doesn't support circular dependencies and I want
 // to keep these config packages as separate workspaces but still have tooling
 // in each of them.
-module.exports = require("../prettier-config/dist/cjs/index.js").base;
+export { base as default } from "../prettier-config/dist/cjs/index.js";
