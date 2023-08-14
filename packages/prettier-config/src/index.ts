@@ -22,25 +22,46 @@
  * export { base as default } from "@cprussin/prettier-config";
  * ```
  *
- * If you want to take the base config and extend it you can spread it, like so:
+ * If you want to combine configs or take the base config and extend it you use
+ * `mergeConfigs`, like so:
  *
  * ```js
- * import { base } from "@cprussin/prettier-config";
- * export default {
- *   ...base,
- *   someSetting: "some-value",
- * };
+ * import { base, tailwind, mergeConfigs } from "@cprussin/prettier-config";
+ *
+ * export default mergeConfigs([
+ *   base,
+ *   tailwind('./tailwind.config.js'),
+ *   { someSetting: "some-value" }
+ * ]);
  * ```
  */
 
+import { createRequire } from "node:module";
+
 import { Config } from "prettier";
+import { PluginOptions } from "prettier-plugin-tailwindcss";
+
+export { mergeConfigs } from "./merge-configs.js";
+
+const { resolve } = createRequire(import.meta.url);
 
 /**
- * Currently the only config. It's literally just an empty object currently. If
- * I ever want to update my format preferences across all my projects, I'll do
- * it here.
- *
- * Possibly, there will be other configs exported in the future if I need
- * different configs for different scenarios for some reason.
+ * The base config. It's literally just an empty object currently. If I ever
+ * want to update my format preferences across all my projects, I'll do it here.
  */
 export const base: Config = {};
+
+/**
+ * Construct a config for projects using Tailwind.  Adds the tailwind plugin and
+ * sets up some common tailwind options.
+ *
+ * @param tailwindConfig - the path to the project's tailwind config file
+ * @returns the Prettier config
+ */
+export const tailwind = (
+  tailwindConfig: string,
+): Config & Partial<PluginOptions> => ({
+  plugins: [resolve("prettier-plugin-tailwindcss")],
+  tailwindFunctions: ["clsx", "classnames"],
+  tailwindConfig,
+});

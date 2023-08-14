@@ -39,7 +39,11 @@
     "test:format": "jest --selectProjects format",
     "test:integration": "jest --selectProjects integration",
     "test:lint": "jest --selectProjects lint",
-    "test:types": "tsc"
+    "test:types": "tsc",
+    "test:unit": "jest --selectProjects unit"
+  },
+  "dependencies": {
+    "prettier-plugin-tailwindcss": "^0.5.2"
   },
   "devDependencies": {
     "@cprussin/transform-package-json": "workspace:*",
