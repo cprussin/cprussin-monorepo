@@ -217,8 +217,8 @@ export const react: Linter.FlatConfig[] = [
   ...compat.extends(
     "plugin:jsx-a11y/recommended",
     "plugin:react-hooks/recommended",
-    "plugin:react/jsx-runtime",
     "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
   ),
   ...extendForFiles("**/*.test.[tj]s?(x)", [
     "plugin:jest-dom/recommended",
