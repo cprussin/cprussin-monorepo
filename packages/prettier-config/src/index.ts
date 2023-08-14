@@ -16,17 +16,17 @@
  * # Usage
  *
  * Just export the config from your prettier config file. For example, in
- * `prettier.config.cjs`:
+ * `prettier.config.js`:
  *
  * ```js
- * module.exports = require("@cprussin/prettier-config").base;
+ * export { base as default } from "@cprussin/prettier-config";
  * ```
  *
  * If you want to take the base config and extend it you can spread it, like so:
  *
  * ```js
- * const { base } = require("@cprussin/prettier-config");
- * module.exports = {
+ * import { base } from "@cprussin/prettier-config";
+ * export default {
  *   ...base,
  *   someSetting: "some-value",
  * };

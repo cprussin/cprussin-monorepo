@@ -46,11 +46,11 @@
       "cache": false
     },
     "fix:format": {
-      "dependsOn": ["fix:lint", "@cprussin/prettier-config#build:cjs"],
+      "dependsOn": ["fix:lint", "@cprussin/prettier-config#build:esm"],
       "cache": false
     },
     "//#fix:format": {
-      "dependsOn": ["//#fix:lint", "@cprussin/prettier-config#build:cjs"],
+      "dependsOn": ["//#fix:lint", "@cprussin/prettier-config#build:esm"],
       "cache": false
     },
     "fix:lint": {
@@ -76,13 +76,13 @@
     "test:format": {
       "dependsOn": [
         "@cprussin/jest-config#build:esm",
-        "@cprussin/prettier-config#build:cjs"
+        "@cprussin/prettier-config#build:esm"
       ]
     },
     "//#test:format": {
       "dependsOn": [
         "@cprussin/jest-config#build:esm",
-        "@cprussin/prettier-config#build:cjs"
+        "@cprussin/prettier-config#build:esm"
       ]
     },
     "test:lint": {
