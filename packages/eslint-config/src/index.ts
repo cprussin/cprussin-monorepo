@@ -146,7 +146,7 @@ export const base: Linter.FlatConfig[] = [
     },
   },
   {
-    files: ["**/*.[jt]s?(x)"],
+    files: ["**/*.?(m)[jt]s?(x)"],
     languageOptions: {
       parserOptions: {
         ecmaVersion: "latest",
