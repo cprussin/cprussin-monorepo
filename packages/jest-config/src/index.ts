@@ -98,7 +98,7 @@
 import { createRequire } from "node:module";
 import { dirname } from "node:path";
 
-import { Config } from "@jest/types";
+import type { Config } from "@jest/types";
 import nextJest from "next/jest.js";
 import { getSupportInfo } from "prettier";
 
@@ -208,6 +208,20 @@ export const base = (
       ...extra.unit,
       config: {
         preset: dirname(resolve("ts-jest/presets/default-esm/jest-preset.js")),
+        // TODO This transform is here because of
+        // https://github.com/kulshekhar/ts-jest/issues/4081, see specifically
+        // https://github.com/kulshekhar/ts-jest/issues/4081#issuecomment-1503684089.
+        // There's probably a better way to fix this, we should find the right
+        // fix and use it.
+        transform: {
+          "^.+\\.tsx?$": [
+            "ts-jest",
+            {
+              isolatedModules: true,
+              useESM: true,
+            },
+          ],
+        },
         moduleNameMapper: {
           "^(\\.{1,2}/.*)\\.js$": "$1",
         },
@@ -218,6 +232,20 @@ export const base = (
       ...extra.integration,
       config: {
         preset: dirname(resolve("ts-jest/presets/default-esm/jest-preset.js")),
+        // TODO This transform is here because of
+        // https://github.com/kulshekhar/ts-jest/issues/4081, see specifically
+        // https://github.com/kulshekhar/ts-jest/issues/4081#issuecomment-1503684089.
+        // There's probably a better way to fix this, we should find the right
+        // fix and use it.
+        transform: {
+          "^.+\\.tsx?$": [
+            "ts-jest",
+            {
+              isolatedModules: true,
+              useESM: true,
+            },
+          ],
+        },
         moduleNameMapper: {
           "^(\\.{1,2}/.*)\\.js$": "$1",
         },
@@ -282,7 +310,6 @@ const config = async (extra: ExtraConfigs): Promise<Config.InitialOptions> => {
       },
     },
     coverageReporters: ["json", "lcov", "text", "cobertura"],
-    collectCoverageFrom: ["<rootDir>/src/**/*.(t|j)s?(x)"],
     projects: [
       await withExtra(extra.unit, {
         displayName: {

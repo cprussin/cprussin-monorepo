@@ -47,7 +47,7 @@
     }
   },
   "scripts": {
-    "build:cjs": "tsc --project tsconfig.build.json --module commonjs --outDir ./dist/cjs && echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json",
+    "build:cjs": "tsc --project tsconfig.build.json --verbatimModuleSyntax false --module commonjs --outDir ./dist/cjs && echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json",
     "build:esm": "tsc --project tsconfig.build.json --outDir ./dist/esm && echo '{\"type\":\"module\"}' > dist/esm/package.json",
     "build:license": "mkdir -p dist && cp ../../LICENSE ./dist",
     "build:package-json": "node ./dist/cjs/bin ./package.json dist/package.json",

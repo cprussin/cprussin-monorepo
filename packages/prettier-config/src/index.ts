@@ -38,8 +38,8 @@
 
 import { createRequire } from "node:module";
 
-import { Config } from "prettier";
-import { PluginOptions } from "prettier-plugin-tailwindcss";
+import type { Config } from "prettier";
+import type { PluginOptions } from "prettier-plugin-tailwindcss";
 
 export { mergeConfigs } from "./merge-configs.js";
 
