@@ -2,7 +2,6 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "./react.json",
   "compilerOptions": {
-    "moduleResolution": "node",
     "plugins": [{ "name": "next" }]
   }
 }
