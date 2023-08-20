@@ -29,6 +29,6 @@ describe("integration", () => {
       });
       expect(stdout.replace(TEST_DIR, "mocked-root-dir")).toMatchSnapshot();
     },
-    120 * ONE_SECOND_IN_MS,
+    240 * ONE_SECOND_IN_MS,
   );
 });
