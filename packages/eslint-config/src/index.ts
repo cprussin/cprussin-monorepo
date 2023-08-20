@@ -50,6 +50,7 @@ import { Linter } from "eslint";
 import tsdocPlugin from "eslint-plugin-tsdoc";
 import globals from "globals";
 import jsoncEslintParser from "jsonc-eslint-parser";
+import loadTailwindConfig from "tailwindcss/loadConfig.js";
 
 // The types exported by jsonc-eslint-parser do not currently unify with those
 // in @types/eslint, see
@@ -61,8 +62,11 @@ const compat = new FlatCompat({
   resolvePluginsRelativeTo: path.dirname(fileURLToPath(import.meta.url)),
 });
 
-const extendForFiles = (glob: string, configs: string[]): Linter.FlatConfig[] =>
-  compat.extends(...configs).map((config) => ({ files: [glob], ...config }));
+const extendForFiles = (
+  glob: string[],
+  configs: string[],
+): Linter.FlatConfig[] =>
+  compat.extends(...configs).map((config) => ({ files: glob, ...config }));
 
 /**
  * This configuration is the base configuration for the others. It can be used
@@ -90,17 +94,20 @@ export const base: Linter.FlatConfig[] = [
     "prettier",
     "turbo",
   ),
-  ...extendForFiles("**/*.ts?(x)", [
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:@typescript-eslint/strict",
-    "plugin:import/typescript",
-  ]),
-  ...extendForFiles("**/*.test.[tj]s?(x)", [
-    "plugin:jest/recommended",
-    "plugin:jest/style",
-  ]),
-  ...extendForFiles("**/*.json", ["plugin:jsonc/recommended-with-json"]),
+  ...extendForFiles(
+    ["**/*.ts?(x)"],
+    [
+      "plugin:@typescript-eslint/recommended",
+      "plugin:@typescript-eslint/recommended-requiring-type-checking",
+      "plugin:@typescript-eslint/strict",
+      "plugin:import/typescript",
+    ],
+  ),
+  ...extendForFiles(
+    ["**/*.test.[tj]s?(x)"],
+    ["plugin:jest/recommended", "plugin:jest/style"],
+  ),
+  ...extendForFiles(["**/*.json"], ["plugin:jsonc/recommended-with-json"]),
   {
     settings: {
       "import/parsers": {
@@ -220,10 +227,10 @@ export const react: Linter.FlatConfig[] = [
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
   ),
-  ...extendForFiles("**/*.test.[tj]s?(x)", [
-    "plugin:jest-dom/recommended",
-    "plugin:testing-library/react",
-  ]),
+  ...extendForFiles(
+    ["**/*.test.[tj]s?(x)"],
+    ["plugin:jest-dom/recommended", "plugin:testing-library/react"],
+  ),
 ];
 
 // We have to remove the `import` plugin from the configuration exported by
@@ -261,3 +268,40 @@ export const nextjs: Linter.FlatConfig[] = [
     ignores: ["next-env.d.ts", ".next/**/*"],
   },
 ];
+
+/**
+ * This configuration sets up linting for tailwind styles.
+ *
+ * @param tailwindConfig - the path to the project's tailwind config file
+ * @returns the eslint config
+ */
+export const tailwind = (tailwindConfig: string): Linter.FlatConfig[] => {
+  const { content } = loadTailwindConfig(tailwindConfig);
+
+  if (Array.isArray(content)) {
+    const _content: string[] = [];
+    for (const entry of content) {
+      if (typeof entry === "string") {
+        _content.push(entry);
+      }
+    }
+    return [
+      ...extendForFiles(_content, ["plugin:tailwindcss/recommended"]),
+      {
+        files: _content,
+        rules: {
+          "tailwindcss/classnames-order": "off",
+          "tailwindcss/enforces-negative-arbitrary-values": "error",
+          "tailwindcss/enforces-shorthand": "error",
+          "tailwindcss/migration-from-tailwind-2": "error",
+          "tailwindcss/no-custom-classname": "error",
+          "tailwindcss/no-contradicting-classname": "error",
+        },
+      },
+    ];
+  } else {
+    throw new TypeError(
+      "This eslint config only works if the tailwind content is an array of strings!",
+    );
+  }
+};
