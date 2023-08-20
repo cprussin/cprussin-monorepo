@@ -333,7 +333,7 @@ const config = async (extra: ExtraConfigs): Promise<Config.InitialOptions> => {
           name: "format",
           color: "white",
         },
-        runner: resolve("jest-runner-prettier"),
+        runner: resolve("@cprussin/jest-runner-prettier"),
         moduleFileExtensions: prettierExtensions.map((ext) =>
           ext.replace(/\./, ""),
         ),
