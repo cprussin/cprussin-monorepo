@@ -305,3 +305,11 @@ export const tailwind = (tailwindConfig: string): Linter.FlatConfig[] => {
     );
   }
 };
+
+/**
+ * This configuration sets up the storybook plugin.
+ */
+export const storybook = extendForFiles(
+  ["**/*.story.[tj]sx", ".storybook/**/*"],
+  ["plugin:storybook/recommended"],
+);
