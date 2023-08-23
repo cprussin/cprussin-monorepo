@@ -1,5 +1,11 @@
 # @cprussin/tsconfig
 
+## 2.0.0
+
+### Major Changes
+
+- 43a7b7e: Enable `verbatimModuleSyntax` tsconfig option
+
 ## 1.2.0
 
 ### Minor Changes

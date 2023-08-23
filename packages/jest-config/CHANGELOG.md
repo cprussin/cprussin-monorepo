@@ -1,5 +1,15 @@
 # @cprussin/jest-config
 
+## 1.3.0
+
+### Minor Changes
+
+- 43a7b7e: Enable `verbatimModuleSyntax` tsconfig option
+
+### Patch Changes
+
+- 7490db3: Update dependencies
+
 ## 1.2.0
 
 ### Minor Changes

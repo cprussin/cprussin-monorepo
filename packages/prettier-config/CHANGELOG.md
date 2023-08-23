@@ -1,5 +1,15 @@
 # @cprussin/prettier-config
 
+## 2.0.0
+
+### Major Changes
+
+- aaf22f2: Stop distributing cjs
+
+### Minor Changes
+
+- be4375e: Add tailwind prettier config
+
 ## 1.2.0
 
 ### Minor Changes

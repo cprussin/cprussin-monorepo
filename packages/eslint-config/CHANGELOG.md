@@ -1,5 +1,18 @@
 # @cprussin/eslint-config
 
+## 1.3.0
+
+### Minor Changes
+
+- 0e663b0: Add storybook eslint config
+- 0befd73: Add tailwind config
+- 7490db3: Update dependencies
+
+### Patch Changes
+
+- d605927: Ensure mjs (and mts, mjsx, and mtsx) files are configured properly
+- b3e7a63: Ensure react/jsx-runtime is loaded after react/recommended
+
 ## 1.2.0
 
 ### Minor Changes
