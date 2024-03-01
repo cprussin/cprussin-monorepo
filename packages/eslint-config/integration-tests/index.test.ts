@@ -25,6 +25,7 @@ describe("integration", () => {
       await execAsync("pnpm --ignore-workspace i", { cwd: TEST_DIR });
       const { stdout } = await execAsync("pnpm exec eslint . || true", {
         cwd: TEST_DIR,
+        // eslint-disable-next-line n/no-process-env
         env: { ...process.env, FORCE_COLOR: "0" },
       });
       expect(stdout.replace(TEST_DIR, "mocked-root-dir")).toMatchSnapshot();

@@ -46,6 +46,7 @@ describe("integration", () => {
         "pnpm exec jest --json --outputFile ./test-results.json .",
         {
           cwd: TEST_DIR,
+          // eslint-disable-next-line n/no-process-env
           env: { ...process.env, FORCE_COLOR: "0" },
         },
       );
