@@ -25,6 +25,7 @@ describe("integration", () => {
       await execAsync("pnpm --ignore-workspace i", { cwd: TEST_DIR });
       const { stderr } = await execAsync(
         "pnpm exec prettier --check . || true",
+        // eslint-disable-next-line n/no-process-env
         { cwd: TEST_DIR, env: { ...process.env, FORCE_COLOR: "0" } },
       );
       expect(stderr).toMatchSnapshot();

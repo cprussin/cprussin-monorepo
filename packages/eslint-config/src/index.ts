@@ -46,27 +46,42 @@ import babelEslintParser from "@babel/eslint-parser";
 import babelPluginSyntaxImportAssertions from "@babel/plugin-syntax-import-assertions";
 import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
-import { Linter } from "eslint";
-import tsdocPlugin from "eslint-plugin-tsdoc";
+import type { Linter } from "eslint";
+import prettier from "eslint-config-prettier";
+import jest from "eslint-plugin-jest";
+import n from "eslint-plugin-n";
+import jsxRuntime from "eslint-plugin-react/configs/jsx-runtime.js";
+import reactRecommended from "eslint-plugin-react/configs/recommended.js";
+import tsdoc from "eslint-plugin-tsdoc";
+import unicorn from "eslint-plugin-unicorn";
 import globals from "globals";
-import jsoncEslintParser from "jsonc-eslint-parser";
 import loadTailwindConfig from "tailwindcss/loadConfig.js";
+import _tseslint from "typescript-eslint";
 
-// The types exported by jsonc-eslint-parser do not currently unify with those
-// in @types/eslint, see
-// https://github.com/ota-meshi/jsonc-eslint-parser/issues/159
-// TODO I should put in a PR to fix this somewhere
-const jsonParser = jsoncEslintParser as unknown as Linter.ParserModule;
+// TODO for some reason, using `tseslint` directly results in
+// @typescript-eslint/no-unsafe-assignment thinking we're spreading an `any`
+// value into an array where tseslint is used.  Something in the types that
+// tseslint uses aren't unifying properly somewhere.  So let's cast it over to
+// the types from eslint directly before we use it to avoid the errors.
+//
+// I should investigate what's actually happening here and figure out a better
+// fix.  Probably the types from tseslint should be the same as the types from
+// eslint, I'm not sure why they aren't.
+const tseslint: {
+  configs: {
+    strictTypeChecked: Linter.FlatConfig[];
+    stylisticTypeChecked: Linter.FlatConfig[];
+  };
+} = _tseslint;
 
 const compat = new FlatCompat({
   resolvePluginsRelativeTo: path.dirname(fileURLToPath(import.meta.url)),
 });
 
-const extendForFiles = (
-  glob: string[],
-  configs: string[],
-): Linter.FlatConfig[] =>
-  compat.extends(...configs).map((config) => ({ files: glob, ...config }));
+const match = (
+  files: string[],
+  configs: Linter.FlatConfig[],
+): Linter.FlatConfig[] => configs.map((config) => ({ ...config, files }));
 
 /**
  * This configuration is the base configuration for the others. It can be used
@@ -87,33 +102,29 @@ const extendForFiles = (
  * ```
  */
 export const base: Linter.FlatConfig[] = [
-  js.configs.recommended,
-  ...compat.extends(
-    "plugin:import/recommended",
-    "plugin:unicorn/recommended",
-    "prettier",
-    "turbo",
-  ),
-  ...extendForFiles(
-    ["**/*.ts?(x)"],
-    [
-      "plugin:@typescript-eslint/recommended",
-      "plugin:@typescript-eslint/recommended-requiring-type-checking",
-      "plugin:@typescript-eslint/strict",
-      "plugin:import/typescript",
+  {
+    ignores: [
+      ".turbo/**/*",
+      "dist/**/*",
+      "coverage/**/*",
+      "node_modules/**/*",
+      "*.tsbuildinfo",
     ],
-  ),
-  ...extendForFiles(
-    ["**/*.test.[tj]s?(x)"],
-    ["plugin:jest/recommended", "plugin:jest/style"],
-  ),
-  ...extendForFiles(["**/*.json"], ["plugin:jsonc/recommended-with-json"]),
+  },
+
+  js.configs.recommended,
+  prettier,
+  unicorn.configs["flat/recommended"],
+  n.configs["flat/recommended"],
+  ...compat.extends("plugin:import/recommended", "turbo"),
+
   {
     settings: {
       "import/parsers": {
         espree: [".js", ".cjs", ".mjs", ".jsx"],
       },
     },
+
     rules: {
       "no-alert": "error",
       "no-console": "error",
@@ -135,76 +146,99 @@ export const base: Linter.FlatConfig[] = [
       ],
       "unicorn/prevent-abbreviations": "off",
       "unicorn/no-useless-undefined": ["error", { checkArguments: false }],
-    },
-  },
-  {
-    files: ["**/*.ts?(x)"],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.json"],
-      },
-    },
-    plugins: {
-      tsdoc: tsdocPlugin,
-    },
-    rules: {
-      "@typescript-eslint/consistent-type-definitions": ["error", "type"],
-      "tsdoc/syntax": "error",
-    },
-  },
-  {
-    files: ["**/*.?(m)[jt]s?(x)"],
-    languageOptions: {
-      parserOptions: {
-        ecmaVersion: "latest",
-        sourceType: "module",
-      },
-    },
-  },
-  {
-    files: ["**/*.cjs"],
-    languageOptions: {
-      globals: globals.node,
+      "n/no-process-env": "error",
+      "n/no-missing-import": "off",
     },
   },
 
-  // Enable parsing files that use the `assert` syntax
-  {
-    files: ["**/*.js"],
-    languageOptions: {
-      globals: globals.node,
-      parser: babelEslintParser,
-      parserOptions: {
-        requireConfigFile: false,
-        babelOptions: {
-          plugins: [babelPluginSyntaxImportAssertions],
+  ...match(
+    ["**/*.ts?(x)"],
+    [
+      ...tseslint.configs.strictTypeChecked,
+      ...tseslint.configs.stylisticTypeChecked,
+      ...compat.extends("plugin:import/typescript"),
+      {
+        languageOptions: {
+          parserOptions: {
+            project: ["./tsconfig.json"],
+          },
+        },
+        plugins: { tsdoc },
+        rules: {
+          "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+          "tsdoc/syntax": "error",
         },
       },
-    },
-  },
-
-  {
-    files: ["**/*.test.ts"],
-    rules: {
-      // Jest still doesn't support ESM natively, see
-      // https://github.com/jestjs/jest/issues/9430.  As such, writing code to
-      // accommodate this rule will cause jest to fail.
-      //
-      // This could become a problem if we ever try to unit test code that uses
-      // `import.meta`, etc; at that time we may need a better solution.
-      "unicorn/prefer-module": "off",
-    },
-  },
-
-  {
-    ignores: [
-      ".turbo/**/*",
-      "dist/**/*",
-      "coverage/**/*",
-      "node_modules/**/*",
-      "*.tsbuildinfo",
     ],
-  },
+  ),
+
+  ...match(
+    ["**/*.test.[tj]s?(x)"],
+    [jest.configs["flat/recommended"], jest.configs["flat/style"]],
+  ),
+
+  ...match(["**/*.json"], compat.extends("plugin:jsonc/recommended-with-json")),
+
+  ...match(
+    ["**/*.?(m)[jt]s?(x)"],
+    [
+      {
+        languageOptions: {
+          parserOptions: {
+            ecmaVersion: "latest",
+            sourceType: "module",
+          },
+        },
+      },
+    ],
+  ),
+
+  ...match(
+    ["**/*.cjs"],
+    [
+      {
+        languageOptions: {
+          globals: globals.node,
+        },
+      },
+    ],
+  ),
+
+  // Enable parsing files that use the `assert` syntax
+  ...match(
+    ["**/*.js"],
+    [
+      {
+        languageOptions: {
+          globals: globals.node,
+          parser: babelEslintParser,
+          parserOptions: {
+            requireConfigFile: false,
+            babelOptions: {
+              plugins: [babelPluginSyntaxImportAssertions],
+            },
+          },
+        },
+      },
+    ],
+  ),
+
+  ...match(
+    ["**/*.test.ts"],
+    [
+      {
+        rules: {
+          // Jest still doesn't support ESM natively, see
+          // https://github.com/jestjs/jest/issues/9430.  As such, writing code to
+          // accommodate this rule will cause jest to fail.
+          //
+          // This could become a problem if we ever try to unit test code that uses
+          // `import.meta`, etc; at that time we may need a better solution.
+          "unicorn/prefer-module": "off",
+        },
+      },
+    ],
+  ),
 ];
 
 /**
@@ -221,31 +255,29 @@ export const base: Linter.FlatConfig[] = [
  */
 export const react: Linter.FlatConfig[] = [
   ...base,
+  reactRecommended,
+  jsxRuntime,
   ...compat.extends(
     "plugin:jsx-a11y/recommended",
     "plugin:react-hooks/recommended",
-    "plugin:react/recommended",
-    "plugin:react/jsx-runtime",
   ),
-  ...extendForFiles(
+
+  {
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
+  },
+
+  ...match(
     ["**/*.test.[tj]s?(x)"],
-    ["plugin:jest-dom/recommended", "plugin:testing-library/react"],
+    compat.extends(
+      "plugin:jest-dom/recommended",
+      "plugin:testing-library/react",
+    ),
   ),
 ];
-
-// We have to remove the `import` plugin from the configuration exported by
-// nextjs because it conflicts with the plugin we have installed in base.js and
-// causes issues.
-const nextConfig: Linter.FlatConfig[] = compat
-  .extends("next/core-web-vitals")
-  .map((cfg) => ({
-    ...cfg,
-    plugins: Object.fromEntries(
-      Object.entries(cfg.plugins ?? {}).filter(
-        (plugin) => plugin[0] !== "import",
-      ),
-    ),
-  }));
 
 /**
  * This configuration extends the {@link base} and {@link react} configurations
@@ -259,13 +291,12 @@ const nextConfig: Linter.FlatConfig[] = compat
  */
 export const nextjs: Linter.FlatConfig[] = [
   ...react,
-  ...nextConfig,
+  ...compat.extends(
+    "plugin:@next/next/recommended",
+    "plugin:@next/next/core-web-vitals",
+  ),
   {
-    files: ["**/*.json"],
-    languageOptions: { parser: jsonParser },
-  },
-  {
-    ignores: ["next-env.d.ts", ".next/**/*"],
+    ignores: ["next-env.d.ts", ".next/**/*", ".env*.local"],
   },
 ];
 
@@ -285,10 +316,9 @@ export const tailwind = (tailwindConfig: string): Linter.FlatConfig[] => {
         _content.push(entry);
       }
     }
-    return [
-      ...extendForFiles(_content, ["plugin:tailwindcss/recommended"]),
+    return match(_content, [
+      ...compat.extends("plugin:tailwindcss/recommended"),
       {
-        files: _content,
         rules: {
           "tailwindcss/classnames-order": "off",
           "tailwindcss/enforces-negative-arbitrary-values": "error",
@@ -298,7 +328,7 @@ export const tailwind = (tailwindConfig: string): Linter.FlatConfig[] => {
           "tailwindcss/no-contradicting-classname": "error",
         },
       },
-    ];
+    ]);
   } else {
     throw new TypeError(
       "This eslint config only works if the tailwind content is an array of strings!",
@@ -309,7 +339,7 @@ export const tailwind = (tailwindConfig: string): Linter.FlatConfig[] => {
 /**
  * This configuration sets up the storybook plugin.
  */
-export const storybook = extendForFiles(
-  ["**/*.story.[tj]sx", ".storybook/**/*"],
-  ["plugin:storybook/recommended"],
+export const storybook: Linter.FlatConfig[] = match(
+  ["**/*.story.[tj]sx", "**/story.[tj]sx"],
+  compat.extends("plugin:storybook/csf-strict"),
 );

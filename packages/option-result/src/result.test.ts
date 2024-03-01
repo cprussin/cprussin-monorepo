@@ -61,6 +61,7 @@ describe("Result", () => {
 
     describe("when the promise rejects with a null value", () => {
       it("returns an Err with a None", async () => {
+        // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
         const result = await Result.wrapAsync(Promise.reject());
         expect(result).toStrictEqual(Err(None()));
       });
