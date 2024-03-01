@@ -1,5 +1,16 @@
 # @cprussin/transform-package-json
 
+## 1.3.0
+
+### Minor Changes
+
+- 3ac1569: Update dependencies and utilize some features now available with the updated dependencies:
+
+  - Utilize new flat configs for various eslint plugins
+  - Extend eslint config with some useful additions (e.g. `eslint-plugin-n`)
+  - Fix glob for storybook eslint config
+  - Use the new `bundler` tsconfig `moduleResolution` for next.js
+
 ## 1.2.0
 
 ### Minor Changes
