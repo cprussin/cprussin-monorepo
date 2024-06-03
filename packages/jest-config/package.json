@@ -29,9 +29,17 @@
   "main": "./dist/esm/index.js",
   "types": "./dist/esm/index.d.ts",
   "exports": {
-    "import": {
-      "types": "./dist/esm/index.d.ts",
-      "default": "./dist/esm/index.js"
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      }
+    },
+    "./next": {
+      "import": {
+        "types": "./dist/esm/next.d.ts",
+        "default": "./dist/esm/next.js"
+      }
     }
   },
   "scripts": {
@@ -46,30 +54,36 @@
     "test:lint": "jest --selectProjects lint",
     "test:types": "tsc"
   },
+  "peerDependencies": {
+    "jest": "^29.7.0",
+    "next": "^15.2.1",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2"
+  },
+  "peerDependenciesMeta": {
+    "next": {
+      "optional": true
+    }
+  },
   "dependencies": {
     "@cprussin/jest-runner-prettier": "^1.0.0",
-    "@testing-library/jest-dom": "^6.4.5",
-    "jest": "^29.7.0",
+    "@testing-library/jest-dom": "^6.6.3",
     "jest-environment-jsdom": "^29.7.0",
-    "jest-runner-eslint": "^2.2.0",
-    "next": "^14.2.3",
-    "prettier": "^3.3.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "ts-jest": "^29.1.4",
-    "typescript": "^5.4.5"
+    "jest-runner-eslint": "^2.2.1",
+    "ts-jest": "^29.2.6"
   },
   "devDependencies": {
     "@cprussin/transform-package-json": "workspace:*",
     "@cprussin/tsconfig": "workspace:*",
     "@jest/test-result": "^29.7.0",
     "@jest/types": "^29.6.3",
-    "@types/jest": "^29.5.12",
-    "@types/node": "^20.14.0",
-    "eslint": "^9.4.0",
-    "jest": "latest",
-    "prettier": "latest",
-    "ts-morph": "^22.0.0",
-    "typedoc-plugin-markdown": "^4.0.3"
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.13.10",
+    "eslint": "^9.22.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.5.3",
+    "ts-morph": "^25.0.1",
+    "typedoc-plugin-markdown": "^4.4.2",
+    "typescript": "^5.8.2"
   }
 }

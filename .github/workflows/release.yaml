@@ -20,16 +20,16 @@ jobs:
           nix_path: nixpkgs=channel:nixpkgs-unstable
 
       - name: Install environment
-        run: nix-shell --run "pnpm i"
+        run: nix develop --command pnpm i
 
       - name: Build
-        run: nix-shell --run "cli build"
+        run: nix develop --command cli build
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: nix-shell --run publish
+          publish: nix develop --command cli publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
