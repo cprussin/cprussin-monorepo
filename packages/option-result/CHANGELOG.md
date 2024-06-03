@@ -1,5 +1,11 @@
 # @cprussin/option-result
 
+## 1.3.1
+
+### Patch Changes
+
+- 4ecefce: Update dependencies and add eslint v9 compatibility
+
 ## 1.3.0
 
 ### Minor Changes
