@@ -1,5 +1,11 @@
 # @cprussin/eslint-config
 
+## 3.0.0
+
+### Major Changes
+
+- 4ecefce: Update dependencies and add eslint v9 compatibility
+
 ## 2.0.0
 
 ### Major Changes

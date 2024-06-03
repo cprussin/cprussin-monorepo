@@ -1,5 +1,11 @@
 # @cprussin/tsconfig
 
+## 3.0.1
+
+### Patch Changes
+
+- 4ecefce: Update dependencies and add eslint v9 compatibility
+
 ## 3.0.0
 
 ### Major Changes
