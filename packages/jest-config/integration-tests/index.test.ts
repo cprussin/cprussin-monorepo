@@ -1,15 +1,15 @@
 import { exec } from "node:child_process";
 import { rm, readFile } from "node:fs/promises";
-import { join } from "node:path";
+import path from "node:path";
 import { promisify } from "node:util";
 
 import type { FormattedTestResults } from "@jest/test-result";
 
 const ONE_SECOND_IN_MS = 1000;
 
-const TEST_DIR = join(__dirname, "__fixtures__", "test-package");
-const NODE_MODULES = join(TEST_DIR, "node_modules");
-const TEST_RESULTS = join(TEST_DIR, "test-results.json");
+const TEST_DIR = path.join(__dirname, "__fixtures__", "test-package");
+const NODE_MODULES = path.join(TEST_DIR, "node_modules");
+const TEST_RESULTS = path.join(TEST_DIR, "test-results.json");
 
 const execAsync = promisify(exec);
 

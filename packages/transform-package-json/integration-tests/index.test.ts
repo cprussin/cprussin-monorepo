@@ -1,13 +1,13 @@
 import { exec } from "node:child_process";
 import { rm, readFile } from "node:fs/promises";
-import { join } from "node:path";
+import path from "node:path";
 import { promisify } from "node:util";
 
 const ONE_SECOND_IN_MS = 1000;
 
-const TEST_DIR = join(__dirname, "__fixtures__", "test-package");
-const NODE_MODULES = join(TEST_DIR, "node_modules");
-const OUT_PACKAGE_JSON = join(TEST_DIR, "out.package.json");
+const TEST_DIR = path.join(__dirname, "__fixtures__", "test-package");
+const NODE_MODULES = path.join(TEST_DIR, "node_modules");
+const OUT_PACKAGE_JSON = path.join(TEST_DIR, "out.package.json");
 
 const execAsync = promisify(exec);
 

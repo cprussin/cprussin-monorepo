@@ -80,7 +80,7 @@
  * transformed contents.
  */
 import { readFile, writeFile, mkdir } from "node:fs/promises";
-import { relative, dirname } from "node:path";
+import path from "node:path";
 
 /**
  * A type for objects whose values may be `T` or may be objects, which
@@ -197,10 +197,10 @@ export const transformPackageJson = async (
   >;
   const contents = transformPackageJsonContents(oldPackageJson, {
     ...options,
-    relativePathRoot: relative(dirname(input), dirname(output)),
+    relativePathRoot: path.relative(path.dirname(input), path.dirname(output)),
   });
   try {
-    await mkdir(dirname(output), { recursive: false });
+    await mkdir(path.dirname(output), { recursive: false });
   } catch (error) {
     /* istanbul ignore next */
     if (
@@ -239,7 +239,7 @@ const updateExportsPath = (
 };
 
 const relativeWithDot = (from: string, to: string): string => {
-  const relativeWithoutDot = relative(from, to);
+  const relativeWithoutDot = path.relative(from, to);
   return relativeWithoutDot.startsWith(".")
     ? relativeWithoutDot
     : `./${relativeWithoutDot}`;

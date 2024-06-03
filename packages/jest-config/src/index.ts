@@ -96,7 +96,7 @@
  */
 
 import { createRequire } from "node:module";
-import { dirname } from "node:path";
+import path from "node:path";
 
 import type { Config } from "@jest/types";
 import nextJest from "next/jest.js";
@@ -207,7 +207,9 @@ export const base = (
     unit: {
       ...extra.unit,
       config: {
-        preset: dirname(resolve("ts-jest/presets/default-esm/jest-preset.js")),
+        preset: path.dirname(
+          resolve("ts-jest/presets/default-esm/jest-preset.js"),
+        ),
         // TODO This transform is here because of
         // https://github.com/kulshekhar/ts-jest/issues/4081, see specifically
         // https://github.com/kulshekhar/ts-jest/issues/4081#issuecomment-1503684089.
@@ -231,7 +233,9 @@ export const base = (
     integration: {
       ...extra.integration,
       config: {
-        preset: dirname(resolve("ts-jest/presets/default-esm/jest-preset.js")),
+        preset: path.dirname(
+          resolve("ts-jest/presets/default-esm/jest-preset.js"),
+        ),
         // TODO This transform is here because of
         // https://github.com/kulshekhar/ts-jest/issues/4081, see specifically
         // https://github.com/kulshekhar/ts-jest/issues/4081#issuecomment-1503684089.

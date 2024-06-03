@@ -43,18 +43,18 @@
     "test:unit": "jest --selectProjects unit"
   },
   "dependencies": {
-    "prettier-plugin-tailwindcss": "^0.5.11"
+    "prettier-plugin-tailwindcss": "^0.6.1"
   },
   "devDependencies": {
     "@cprussin/transform-package-json": "workspace:*",
     "@cprussin/tsconfig": "workspace:*",
     "@jest/types": "^29.6.3",
     "@types/jest": "^29.5.12",
-    "@types/node": "^20.11.24",
-    "eslint": "^8.57.0",
+    "@types/node": "^20.14.0",
+    "eslint": "^9.4.0",
     "jest": "^29.7.0",
-    "prettier": "^3.2.5",
-    "typedoc-plugin-markdown": "^3.17.1",
-    "typescript": "^5.3.3"
+    "prettier": "^3.3.0",
+    "typedoc-plugin-markdown": "^4.0.3",
+    "typescript": "^5.4.5"
   }
 }
