@@ -36,7 +36,7 @@ describe("Result", () => {
     describe("when the function throws a null value", () => {
       it("returns an Err with None", () => {
         const result = Result.wrap(() => {
-          // eslint-disable-next-line @typescript-eslint/no-throw-literal
+          // eslint-disable-next-line @typescript-eslint/only-throw-error
           throw undefined;
         });
         expect(result).toStrictEqual(Err(None()));

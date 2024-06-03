@@ -44,9 +44,10 @@ import { fileURLToPath } from "node:url";
 
 import babelEslintParser from "@babel/eslint-parser";
 import babelPluginSyntaxImportAssertions from "@babel/plugin-syntax-import-assertions";
+import { fixupConfigRules } from "@eslint/compat";
 import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
-import type { Linter } from "eslint";
+import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
 import prettier from "eslint-config-prettier";
 import jest from "eslint-plugin-jest";
 import n from "eslint-plugin-n";
@@ -56,23 +57,7 @@ import tsdoc from "eslint-plugin-tsdoc";
 import unicorn from "eslint-plugin-unicorn";
 import globals from "globals";
 import loadTailwindConfig from "tailwindcss/loadConfig.js";
-import _tseslint from "typescript-eslint";
-
-// TODO for some reason, using `tseslint` directly results in
-// @typescript-eslint/no-unsafe-assignment thinking we're spreading an `any`
-// value into an array where tseslint is used.  Something in the types that
-// tseslint uses aren't unifying properly somewhere.  So let's cast it over to
-// the types from eslint directly before we use it to avoid the errors.
-//
-// I should investigate what's actually happening here and figure out a better
-// fix.  Probably the types from tseslint should be the same as the types from
-// eslint, I'm not sure why they aren't.
-const tseslint: {
-  configs: {
-    strictTypeChecked: Linter.FlatConfig[];
-    stylisticTypeChecked: Linter.FlatConfig[];
-  };
-} = _tseslint;
+import tseslint from "typescript-eslint";
 
 const compat = new FlatCompat({
   resolvePluginsRelativeTo: path.dirname(fileURLToPath(import.meta.url)),
@@ -80,8 +65,8 @@ const compat = new FlatCompat({
 
 const match = (
   files: string[],
-  configs: Linter.FlatConfig[],
-): Linter.FlatConfig[] => configs.map((config) => ({ ...config, files }));
+  configs: FlatConfig.ConfigArray,
+): FlatConfig.ConfigArray => configs.map((config) => ({ ...config, files }));
 
 /**
  * This configuration is the base configuration for the others. It can be used
@@ -101,7 +86,7 @@ const match = (
  * export { base as default } from "@cprussin/eslint-config";
  * ```
  */
-export const base: Linter.FlatConfig[] = [
+export const base: FlatConfig.ConfigArray = [
   {
     ignores: [
       ".turbo/**/*",
@@ -116,7 +101,7 @@ export const base: Linter.FlatConfig[] = [
   prettier,
   unicorn.configs["flat/recommended"],
   n.configs["flat/recommended"],
-  ...compat.extends("plugin:import/recommended", "turbo"),
+  ...fixupConfigRules(compat.extends("plugin:import/recommended", "turbo")),
 
   {
     settings: {
@@ -148,6 +133,12 @@ export const base: Linter.FlatConfig[] = [
       "unicorn/no-useless-undefined": ["error", { checkArguments: false }],
       "n/no-process-env": "error",
       "n/no-missing-import": "off",
+      "n/no-unsupported-features/node-builtins": [
+        "error",
+        {
+          allowExperimental: true,
+        },
+      ],
     },
   },
 
@@ -156,7 +147,7 @@ export const base: Linter.FlatConfig[] = [
     [
       ...tseslint.configs.strictTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
-      ...compat.extends("plugin:import/typescript"),
+      ...fixupConfigRules(compat.extends("plugin:import/typescript")),
       {
         languageOptions: {
           parserOptions: {
@@ -177,7 +168,10 @@ export const base: Linter.FlatConfig[] = [
     [jest.configs["flat/recommended"], jest.configs["flat/style"]],
   ),
 
-  ...match(["**/*.json"], compat.extends("plugin:jsonc/recommended-with-json")),
+  ...match(
+    ["**/*.json"],
+    fixupConfigRules(compat.extends("plugin:jsonc/recommended-with-json")),
+  ),
 
   ...match(
     ["**/*.?(m)[jt]s?(x)"],
@@ -253,13 +247,15 @@ export const base: Linter.FlatConfig[] = [
  * export { react as default } from "@cprussin/eslint-config";
  * ```
  */
-export const react: Linter.FlatConfig[] = [
+export const react: FlatConfig.ConfigArray = [
   ...base,
-  reactRecommended,
-  jsxRuntime,
-  ...compat.extends(
-    "plugin:jsx-a11y/recommended",
-    "plugin:react-hooks/recommended",
+  ...fixupConfigRules(reactRecommended),
+  ...fixupConfigRules(jsxRuntime),
+  ...fixupConfigRules(
+    compat.extends(
+      "plugin:jsx-a11y/recommended",
+      "plugin:react-hooks/recommended",
+    ),
   ),
 
   {
@@ -272,9 +268,11 @@ export const react: Linter.FlatConfig[] = [
 
   ...match(
     ["**/*.test.[tj]s?(x)"],
-    compat.extends(
-      "plugin:jest-dom/recommended",
-      "plugin:testing-library/react",
+    fixupConfigRules(
+      compat.extends(
+        "plugin:jest-dom/recommended",
+        "plugin:testing-library/react",
+      ),
     ),
   ),
 ];
@@ -289,11 +287,13 @@ export const react: Linter.FlatConfig[] = [
  * export { nextjs as default } from "@cprussin/eslint-config";
  * ```
  */
-export const nextjs: Linter.FlatConfig[] = [
+export const nextjs: FlatConfig.ConfigArray = [
   ...react,
-  ...compat.extends(
-    "plugin:@next/next/recommended",
-    "plugin:@next/next/core-web-vitals",
+  ...fixupConfigRules(
+    compat.extends(
+      "plugin:@next/next/recommended",
+      "plugin:@next/next/core-web-vitals",
+    ),
   ),
   {
     ignores: ["next-env.d.ts", ".next/**/*", ".env*.local"],
@@ -306,7 +306,7 @@ export const nextjs: Linter.FlatConfig[] = [
  * @param tailwindConfig - the path to the project's tailwind config file
  * @returns the eslint config
  */
-export const tailwind = (tailwindConfig: string): Linter.FlatConfig[] => {
+export const tailwind = (tailwindConfig: string): FlatConfig.ConfigArray => {
   const { content } = loadTailwindConfig(tailwindConfig);
 
   if (Array.isArray(content)) {
@@ -317,7 +317,7 @@ export const tailwind = (tailwindConfig: string): Linter.FlatConfig[] => {
       }
     }
     return match(_content, [
-      ...compat.extends("plugin:tailwindcss/recommended"),
+      ...fixupConfigRules(compat.extends("plugin:tailwindcss/recommended")),
       {
         rules: {
           "tailwindcss/classnames-order": "off",
@@ -339,7 +339,7 @@ export const tailwind = (tailwindConfig: string): Linter.FlatConfig[] => {
 /**
  * This configuration sets up the storybook plugin.
  */
-export const storybook: Linter.FlatConfig[] = match(
+export const storybook: FlatConfig.ConfigArray = match(
   ["**/*.story.[tj]sx", "**/story.[tj]sx"],
-  compat.extends("plugin:storybook/csf-strict"),
+  fixupConfigRules(compat.extends("plugin:storybook/csf-strict")),
 );
