@@ -1,18 +1,22 @@
-lockfileVersion: '6.1'
+lockfileVersion: '9.0'
 
 settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-dependencies:
-  '@cprussin/option-result':
-    specifier: file:../../../dist
-    version: file:../../../dist
+importers:
+
+  .:
+    dependencies:
+      '@cprussin/option-result':
+        specifier: file:../../../dist
+        version: file:../../../dist
 
 packages:
 
-  file:../../../dist:
+  '@cprussin/option-result@file:../../../dist':
     resolution: {directory: ../../../dist, type: directory}
-    name: '@cprussin/option-result'
-    version: 1.1.0
-    dev: false
+
+snapshots:
+
+  '@cprussin/option-result@file:../../../dist': {}

@@ -1,18 +1,33 @@
-lockfileVersion: '6.1'
+lockfileVersion: '9.0'
 
 settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-devDependencies:
-  '@cprussin/tsconfig':
-    specifier: file:../../../dist
-    version: file:../../../dist
+importers:
+
+  .:
+    devDependencies:
+      '@cprussin/tsconfig':
+        specifier: file:../../../dist
+        version: file:../../../dist(typescript@5.8.2)
 
 packages:
 
-  file:../../../dist:
+  '@cprussin/tsconfig@file:../../../dist':
     resolution: {directory: ../../../dist, type: directory}
-    name: '@cprussin/tsconfig'
-    version: 1.1.0
-    dev: true
+    peerDependencies:
+      typescript: ^5.8.2
+
+  typescript@5.8.2:
+    resolution: {integrity: sha512-aJn6wq13/afZp/jT9QZmwEjDqqvSGp1VT5GVg+f/t6/oVyrgXM6BY1h9BRh/O5p3PlUPAe+WuiEZOmb/49RqoQ==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
+snapshots:
+
+  '@cprussin/tsconfig@file:../../../dist(typescript@5.8.2)':
+    dependencies:
+      typescript: 5.8.2
+
+  typescript@5.8.2: {}

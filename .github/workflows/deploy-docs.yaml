@@ -18,10 +18,10 @@ jobs:
           nix_path: nixpkgs=channel:nixpkgs-unstable
 
       - name: Install environment
-        run: nix-shell --run "pnpm i"
+        run: nix shell --run "pnpm i"
 
       - name: Test
-        run: nix-shell --run "cli build-docs"
+        run: nix shell --run "cli build-docs"
 
       - name: Upload
         uses: actions/upload-pages-artifact@v1

@@ -39,34 +39,55 @@
  * ```
  */
 
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-
-import babelEslintParser from "@babel/eslint-parser";
-import babelPluginSyntaxImportAssertions from "@babel/plugin-syntax-import-assertions";
-import { fixupConfigRules } from "@eslint/compat";
 import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
 import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
 import prettier from "eslint-config-prettier";
+import turbo from "eslint-config-turbo/flat";
+// @ts-expect-error this module is not typed
+import _importPlugin from "eslint-plugin-import";
 import jest from "eslint-plugin-jest";
+import jestDom from "eslint-plugin-jest-dom";
+import eslintPluginJsonc from "eslint-plugin-jsonc";
+// @ts-expect-error this module is not typed
+import _jsxA11y from "eslint-plugin-jsx-a11y";
 import n from "eslint-plugin-n";
-import jsxRuntime from "eslint-plugin-react/configs/jsx-runtime.js";
-import reactRecommended from "eslint-plugin-react/configs/recommended.js";
+import reactPlugin from "eslint-plugin-react";
+import reactHooks from "eslint-plugin-react-hooks";
+import storybookPlugin from "eslint-plugin-storybook";
+// @ts-expect-error this module is not typed
+import _tailwindPlugin from "eslint-plugin-tailwindcss";
+import testingLibrary from "eslint-plugin-testing-library";
 import tsdoc from "eslint-plugin-tsdoc";
 import unicorn from "eslint-plugin-unicorn";
 import globals from "globals";
 import loadTailwindConfig from "tailwindcss/loadConfig.js";
 import tseslint from "typescript-eslint";
 
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+const importPlugin: {
+  flatConfigs: {
+    recommended: FlatConfig.Config;
+    typescript: FlatConfig.Config;
+  };
+} = _importPlugin;
+const jsxA11y: { flatConfigs: { recommended: FlatConfig.Config } } = _jsxA11y;
+const tailwindPlugin: {
+  configs: { "flat/recommended": FlatConfig.ConfigArray };
+} = _tailwindPlugin;
+/* eslint-enable @typescript-eslint/no-unsafe-assignment */
+
 const compat = new FlatCompat({
-  resolvePluginsRelativeTo: path.dirname(fileURLToPath(import.meta.url)),
+  resolvePluginsRelativeTo: import.meta.dirname,
 });
 
 const match = (
   files: string[],
   configs: FlatConfig.ConfigArray,
 ): FlatConfig.ConfigArray => configs.map((config) => ({ ...config, files }));
+
+// @ts-expect-error see https://github.com/vercel/turborepo/pull/10128
+const turboConfig: FlatConfig.ConfigArray = turbo;
 
 /**
  * This configuration is the base configuration for the others. It can be used
@@ -99,17 +120,12 @@ export const base: FlatConfig.ConfigArray = [
 
   js.configs.recommended,
   prettier,
-  unicorn.configs["flat/recommended"],
+  unicorn.configs.recommended,
   n.configs["flat/recommended"],
-  ...fixupConfigRules(compat.extends("plugin:import/recommended", "turbo")),
+  ...turboConfig,
+  importPlugin.flatConfigs.recommended,
 
   {
-    settings: {
-      "import/parsers": {
-        espree: [".js", ".cjs", ".mjs", ".jsx"],
-      },
-    },
-
     rules: {
       "no-alert": "error",
       "no-console": "error",
@@ -147,7 +163,7 @@ export const base: FlatConfig.ConfigArray = [
     [
       ...tseslint.configs.strictTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
-      ...fixupConfigRules(compat.extends("plugin:import/typescript")),
+      importPlugin.flatConfigs.typescript,
       {
         languageOptions: {
           parserOptions: {
@@ -158,6 +174,10 @@ export const base: FlatConfig.ConfigArray = [
         rules: {
           "@typescript-eslint/consistent-type-definitions": ["error", "type"],
           "tsdoc/syntax": "error",
+          "import/consistent-type-specifier-style": [
+            "error",
+            "prefer-top-level",
+          ],
         },
       },
     ],
@@ -170,7 +190,8 @@ export const base: FlatConfig.ConfigArray = [
 
   ...match(
     ["**/*.json"],
-    fixupConfigRules(compat.extends("plugin:jsonc/recommended-with-json")),
+    // @ts-expect-error Looks like this has a typing issue...
+    eslintPluginJsonc.configs["flat/recommended-with-jsonc"],
   ),
 
   ...match(
@@ -178,10 +199,8 @@ export const base: FlatConfig.ConfigArray = [
     [
       {
         languageOptions: {
-          parserOptions: {
-            ecmaVersion: "latest",
-            sourceType: "module",
-          },
+          ecmaVersion: "latest",
+          sourceType: "module",
         },
       },
     ],
@@ -205,12 +224,8 @@ export const base: FlatConfig.ConfigArray = [
       {
         languageOptions: {
           globals: globals.node,
-          parser: babelEslintParser,
           parserOptions: {
             requireConfigFile: false,
-            babelOptions: {
-              plugins: [babelPluginSyntaxImportAssertions],
-            },
           },
         },
       },
@@ -249,14 +264,10 @@ export const base: FlatConfig.ConfigArray = [
  */
 export const react: FlatConfig.ConfigArray = [
   ...base,
-  ...fixupConfigRules(reactRecommended),
-  ...fixupConfigRules(jsxRuntime),
-  ...fixupConfigRules(
-    compat.extends(
-      "plugin:jsx-a11y/recommended",
-      "plugin:react-hooks/recommended",
-    ),
-  ),
+  reactPlugin.configs.flat.recommended ?? {},
+  reactPlugin.configs.flat["jsx-runtime"] ?? {},
+  jsxA11y.flatConfigs.recommended,
+  reactHooks.configs["recommended-latest"],
 
   {
     settings: {
@@ -268,12 +279,7 @@ export const react: FlatConfig.ConfigArray = [
 
   ...match(
     ["**/*.test.[tj]s?(x)"],
-    fixupConfigRules(
-      compat.extends(
-        "plugin:jest-dom/recommended",
-        "plugin:testing-library/react",
-      ),
-    ),
+    [jestDom.configs["flat/recommended"], testingLibrary.configs["flat/react"]],
   ),
 ];
 
@@ -289,11 +295,9 @@ export const react: FlatConfig.ConfigArray = [
  */
 export const nextjs: FlatConfig.ConfigArray = [
   ...react,
-  ...fixupConfigRules(
-    compat.extends(
-      "plugin:@next/next/recommended",
-      "plugin:@next/next/core-web-vitals",
-    ),
+  ...compat.extends(
+    "plugin:@next/next/recommended",
+    "plugin:@next/next/core-web-vitals",
   ),
   {
     ignores: ["next-env.d.ts", ".next/**/*", ".env*.local"],
@@ -317,7 +321,7 @@ export const tailwind = (tailwindConfig: string): FlatConfig.ConfigArray => {
       }
     }
     return match(_content, [
-      ...fixupConfigRules(compat.extends("plugin:tailwindcss/recommended")),
+      ...tailwindPlugin.configs["flat/recommended"],
       {
         rules: {
           "tailwindcss/classnames-order": "off",
@@ -341,5 +345,6 @@ export const tailwind = (tailwindConfig: string): FlatConfig.ConfigArray => {
  */
 export const storybook: FlatConfig.ConfigArray = match(
   ["**/*.story.[tj]sx", "**/story.[tj]sx"],
-  fixupConfigRules(compat.extends("plugin:storybook/csf-strict")),
+  // @ts-expect-error Looks like this has a typing issue...
+  storybookPlugin.configs["flat/csf-strict"],
 );

@@ -20,7 +20,7 @@ jobs:
           nix_path: nixpkgs=channel:nixpkgs-unstable
 
       - name: Install environment
-        run: nix-shell --run "pnpm i"
+        run: nix shell --run "pnpm i"
 
       - name: Test
-        run: nix-shell --run "cli test"
+        run: nix shell --run "cli test"
