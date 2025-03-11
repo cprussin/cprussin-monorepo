@@ -7,7 +7,7 @@
     "package.json",
     "publish"
   ],
-  "homepage": "https://www.cprussin.net/modules/_cprussin_transform_package_json.html",
+  "homepage": "https://www.cprussin.net/modules/_cprussin_transform-package-json.html",
   "bugs": "https://github.com/cprussin/cprussin-monorepo/issues",
   "license": "MIT",
   "author": {
