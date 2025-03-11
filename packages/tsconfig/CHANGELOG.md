@@ -1,5 +1,12 @@
 # @cprussin/tsconfig
 
+## 3.1.1
+
+### Patch Changes
+
+- 232ccea: Fix incorrect homepage URL
+- 6ceafec: Update license copyright year
+
 ## 3.1.0
 
 ### Minor Changes

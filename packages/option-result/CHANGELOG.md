@@ -1,5 +1,12 @@
 # @cprussin/option-result
 
+## 1.4.1
+
+### Patch Changes
+
+- 232ccea: Fix incorrect homepage URL
+- 6ceafec: Update license copyright year
+
 ## 1.4.0
 
 ### Minor Changes
