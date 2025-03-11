@@ -1,6 +1,7 @@
 {
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@10.6.1",
   "scripts": {
     "build:docs": "typedoc",
     "fix:format": "prettier --write .",
@@ -10,16 +11,17 @@
     "test:lint": "jest --selectProjects lint"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.5",
-    "@commitlint/cli": "^19.3.0",
-    "@commitlint/config-conventional": "^19.2.2",
+    "@changesets/cli": "^2.28.1",
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
     "@cprussin/eslint-config": "workspace:*",
     "@cprussin/jest-config": "workspace:*",
     "@cprussin/prettier-config": "workspace:*",
-    "eslint": "^9.4.0",
+    "eslint": "^9.22.0",
     "jest": "^29.7.0",
-    "prettier": "^3.3.0",
-    "typedoc": "^0.25.13",
-    "typescript": "^5.4.5"
+    "prettier": "^3.5.3",
+    "turbo": "^2.4.4",
+    "typedoc": "^0.27.9",
+    "typescript": "^5.8.2"
   }
 }
