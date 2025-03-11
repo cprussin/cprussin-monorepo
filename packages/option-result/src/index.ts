@@ -32,7 +32,7 @@
  *
  * ## Motivation
  *
- * ![But why?](media://but-why.webp)
+ * ![But why?](../but-why.webp)
  *
  * Two main reasons:
  *
