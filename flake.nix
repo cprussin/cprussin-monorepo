@@ -20,7 +20,7 @@
 
         check-commits = "${final.nodePackages.pnpm}/bin/pnpm exec commitlint --";
 
-        publish = final.writeShellScriptBin "publish" ''
+        publish = final.writeShellScript "publish" ''
           set -e
           for package in packages/*; do
             mv "$package" "$package-old"
