@@ -1,5 +1,11 @@
 # @cprussin/transform-package-json
 
+## 1.4.0
+
+### Minor Changes
+
+- 42bd5aa: Update dependencies and properly mark peer dependencies
+
 ## 1.3.1
 
 ### Patch Changes

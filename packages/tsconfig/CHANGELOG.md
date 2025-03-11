@@ -1,5 +1,11 @@
 # @cprussin/tsconfig
 
+## 3.1.0
+
+### Minor Changes
+
+- 42bd5aa: Update dependencies and properly mark peer dependencies
+
 ## 3.0.1
 
 ### Patch Changes

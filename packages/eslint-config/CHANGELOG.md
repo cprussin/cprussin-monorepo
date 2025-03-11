@@ -1,5 +1,11 @@
 # @cprussin/eslint-config
 
+## 4.0.0
+
+### Major Changes
+
+- 42bd5aa: Update dependencies and properly mark peer dependencies
+
 ## 3.0.0
 
 ### Major Changes
