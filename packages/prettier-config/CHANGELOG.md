@@ -1,5 +1,12 @@
 # @cprussin/prettier-config
 
+## 2.2.1
+
+### Patch Changes
+
+- 232ccea: Fix incorrect homepage URL
+- 6ceafec: Update license copyright year
+
 ## 2.2.0
 
 ### Minor Changes

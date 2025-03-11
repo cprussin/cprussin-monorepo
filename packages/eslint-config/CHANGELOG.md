@@ -1,5 +1,12 @@
 # @cprussin/eslint-config
 
+## 4.0.1
+
+### Patch Changes
+
+- 232ccea: Fix incorrect homepage URL
+- 6ceafec: Update license copyright year
+
 ## 4.0.0
 
 ### Major Changes

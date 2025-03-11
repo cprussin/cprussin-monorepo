@@ -1,5 +1,12 @@
 # @cprussin/jest-config
 
+## 2.0.1
+
+### Patch Changes
+
+- 232ccea: Fix incorrect homepage URL
+- 6ceafec: Update license copyright year
+
 ## 2.0.0
 
 ### Major Changes
