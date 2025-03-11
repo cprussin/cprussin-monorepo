@@ -1,5 +1,11 @@
 # @cprussin/prettier-config
 
+## 2.2.0
+
+### Minor Changes
+
+- 42bd5aa: Update dependencies and properly mark peer dependencies
+
 ## 2.1.1
 
 ### Patch Changes

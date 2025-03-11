@@ -1,5 +1,11 @@
 # @cprussin/jest-config
 
+## 2.0.0
+
+### Major Changes
+
+- 42bd5aa: Update dependencies and properly mark peer dependencies
+
 ## 1.4.1
 
 ### Patch Changes
