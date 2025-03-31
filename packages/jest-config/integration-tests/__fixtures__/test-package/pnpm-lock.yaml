@@ -199,6 +199,13 @@ packages:
       next:
         optional: true
 
+  '@cprussin/jest-runner-eslint@0.0.1':
+    resolution: {integrity: sha512-dLqhAW0LLZnFGPS9SeKiFpPfxxzGy1flaKYvTqoBG6KlTR4onckeOJz2Jxg2Jg3g2BE+TRMpWCalui7DtjZpng==}
+    engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=18.0.0}
+    peerDependencies:
+      eslint: ^7 || ^8 || ^9
+      jest: ^27 || ^28 || ^29
+
   '@cprussin/jest-runner-prettier@1.0.0':
     resolution: {integrity: sha512-VisB2zjxP2mbpUhNzvwDu3rYpe2okPU1gLeP2CLU4tv1V9HM1CcTHUk+oxx+2tVt7B+cttNKGnWCSsBZLjQgbw==}
     peerDependencies:
@@ -1357,13 +1364,6 @@ packages:
     resolution: {integrity: sha512-IOVhZSrg+UvVAshDSDtHyFCCBUl/Q3AAJv8iZ6ZjnZ74xzvwuzLXid9IIIPgTnY62SJjfuupMKZsZQRsCvxEgA==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
 
-  jest-runner-eslint@2.2.1:
-    resolution: {integrity: sha512-BSAB65hGhtr/Kmb7tSkfqFmK9LYwCMK8L1xcp+XaSToPFqr7sY1jleMZUeDhV0ITA33pW+JUCx5a02veVD2Q2w==}
-    engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=18.0.0}
-    peerDependencies:
-      eslint: ^7 || ^8
-      jest: ^27 || ^28 || ^29
-
   jest-runner@29.7.0:
     resolution: {integrity: sha512-fsc4N6cPCAahybGBfTRcq5wFR6fpLznMg47sY5aDpsoejOcVYFb07AHuSnR0liMcPTgBsA3ZJL6kFOjPdoNipQ==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -2260,11 +2260,11 @@ snapshots:
 
   '@cprussin/jest-config@file:../../../dist(@babel/core@7.26.9)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.9))(eslint@8.57.1)(jest@29.7.0(@types/node@22.13.10))(next@15.2.1(@babel/core@7.26.9)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(prettier@3.5.3)(typescript@5.8.2)':
     dependencies:
+      '@cprussin/jest-runner-eslint': 0.0.1(eslint@8.57.1)(jest@29.7.0(@types/node@22.13.10))
       '@cprussin/jest-runner-prettier': 1.0.0(jest@29.7.0(@types/node@22.13.10))(prettier@3.5.3)
       '@testing-library/jest-dom': 6.6.3
       jest: 29.7.0(@types/node@22.13.10)
       jest-environment-jsdom: 29.7.0
-      jest-runner-eslint: 2.2.1(eslint@8.57.1)(jest@29.7.0(@types/node@22.13.10))
       prettier: 3.5.3
       ts-jest: 29.2.6(@babel/core@7.26.9)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.9))(jest@29.7.0(@types/node@22.13.10))(typescript@5.8.2)
       typescript: 5.8.2
@@ -2283,6 +2283,18 @@ snapshots:
       - jest-runner
       - supports-color
       - utf-8-validate
+
+  '@cprussin/jest-runner-eslint@0.0.1(eslint@8.57.1)(jest@29.7.0(@types/node@22.13.10))':
+    dependencies:
+      chalk: 4.1.2
+      cosmiconfig: 7.1.0
+      create-jest-runner: 0.11.2
+      dot-prop: 6.0.1
+      eslint: 8.57.1
+      jest: 29.7.0(@types/node@22.13.10)
+    transitivePeerDependencies:
+      - '@jest/test-result'
+      - jest-runner
 
   '@cprussin/jest-runner-prettier@1.0.0(jest@29.7.0(@types/node@22.13.10))(prettier@3.5.3)':
     dependencies:
@@ -3648,18 +3660,6 @@ snapshots:
       resolve: 1.22.10
       resolve.exports: 2.0.3
       slash: 3.0.0
-
-  jest-runner-eslint@2.2.1(eslint@8.57.1)(jest@29.7.0(@types/node@22.13.10)):
-    dependencies:
-      chalk: 4.1.2
-      cosmiconfig: 7.1.0
-      create-jest-runner: 0.11.2
-      dot-prop: 6.0.1
-      eslint: 8.57.1
-      jest: 29.7.0(@types/node@22.13.10)
-    transitivePeerDependencies:
-      - '@jest/test-result'
-      - jest-runner
 
   jest-runner@29.7.0:
     dependencies:
