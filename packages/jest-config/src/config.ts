@@ -118,7 +118,7 @@ export const config = async (
           name: "lint",
           color: "magenta",
         },
-        runner: resolve("jest-runner-eslint"),
+        runner: resolve("@cprussin/jest-runner-eslint"),
         testMatch: ["<rootDir>/**/*"],
       }),
     ],

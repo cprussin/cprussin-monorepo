@@ -66,10 +66,10 @@
     }
   },
   "dependencies": {
+    "@cprussin/jest-runner-eslint": "^0.0.1",
     "@cprussin/jest-runner-prettier": "^1.0.0",
     "@testing-library/jest-dom": "^6.6.3",
     "jest-environment-jsdom": "^29.7.0",
-    "jest-runner-eslint": "^2.2.1",
     "ts-jest": "^29.2.6"
   },
   "devDependencies": {
