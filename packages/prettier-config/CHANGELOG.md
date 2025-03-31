@@ -1,5 +1,11 @@
 # @cprussin/prettier-config
 
+## 2.2.2
+
+### Patch Changes
+
+- 7cf3889: Switch to a fork of jest-runner-eslint which adds eslint ^9 to the peerDependencies
+
 ## 2.2.1
 
 ### Patch Changes

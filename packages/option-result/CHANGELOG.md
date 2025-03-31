@@ -1,5 +1,11 @@
 # @cprussin/option-result
 
+## 1.4.2
+
+### Patch Changes
+
+- 7cf3889: Switch to a fork of jest-runner-eslint which adds eslint ^9 to the peerDependencies
+
 ## 1.4.1
 
 ### Patch Changes
