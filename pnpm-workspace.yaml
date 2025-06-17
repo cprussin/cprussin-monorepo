@@ -1,4 +1,20 @@
 packages:
   - packages/*
+  - "!**/integration-tests/__fixtures__/**/*"
+
+engineStrict: true
+
+managePackageManagerVersions: false
+
 onlyBuiltDependencies:
+  - esbuild
   - sharp
+  - unrs-resolver
+
+packageManagerStrict: true
+
+packageManagerStrictVersion: true
+
+strictDepBuilds: true
+
+strictPeerDependencies: false

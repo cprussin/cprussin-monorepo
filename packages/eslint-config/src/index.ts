@@ -86,9 +86,6 @@ const match = (
   configs: FlatConfig.ConfigArray,
 ): FlatConfig.ConfigArray => configs.map((config) => ({ ...config, files }));
 
-// @ts-expect-error see https://github.com/vercel/turborepo/pull/10128
-const turboConfig: FlatConfig.ConfigArray = turbo;
-
 /**
  * This configuration is the base configuration for the others. It can be used
  * standalone in a project that doesn't need one of the extensions. It extends a
@@ -122,7 +119,7 @@ export const base: FlatConfig.ConfigArray = [
   prettier,
   unicorn.configs.recommended,
   n.configs["flat/recommended"],
-  ...turboConfig,
+  ...turbo,
   importPlugin.flatConfigs.recommended,
 
   {
@@ -346,5 +343,6 @@ export const tailwind = (tailwindConfig: string): FlatConfig.ConfigArray => {
 export const storybook: FlatConfig.ConfigArray = match(
   ["**/*.story.[tj]sx", "**/story.[tj]sx"],
   // @ts-expect-error Looks like this has a typing issue...
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
   storybookPlugin.configs["flat/csf-strict"],
 );

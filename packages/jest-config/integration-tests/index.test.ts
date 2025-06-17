@@ -7,9 +7,8 @@ import type { FormattedTestResults } from "@jest/test-result";
 
 const ONE_SECOND_IN_MS = 1000;
 
-const TEST_DIR = path.join(__dirname, "__fixtures__", "test-package");
+const TEST_DIR = path.join(import.meta.dirname, "__fixtures__", "test-package");
 const NODE_MODULES = path.join(TEST_DIR, "node_modules");
-const TEST_RESULTS = path.join(TEST_DIR, "test-results.json");
 
 const execAsync = promisify(exec);
 
@@ -30,20 +29,19 @@ type PatchedFormattedTestResults = Omit<FormattedTestResults, "testResults"> & {
 describe("integration", () => {
   beforeEach(async () => {
     await rm(NODE_MODULES, { recursive: true, force: true });
-    await rm(TEST_RESULTS, { force: true });
   });
 
   afterEach(async () => {
     await rm(NODE_MODULES, { recursive: true });
-    await rm(TEST_RESULTS);
   });
 
   it(
     "installs & works",
     async () => {
-      await execAsync("pnpm --ignore-workspace i", { cwd: TEST_DIR });
+      const resultsFile = path.join(TEST_DIR, "test-results.json");
+      await execAsync("pnpm i", { cwd: TEST_DIR });
       await execAsync(
-        "pnpm exec jest --json --outputFile ./test-results.json .",
+        `pnpm exec run-jest --colors --json --outputFile ${resultsFile} .`,
         {
           cwd: TEST_DIR,
           // eslint-disable-next-line n/no-process-env
@@ -51,8 +49,9 @@ describe("integration", () => {
         },
       );
       const testResults = JSON.parse(
-        await readFile(TEST_RESULTS, "utf8"),
+        await readFile(resultsFile, "utf8"),
       ) as PatchedFormattedTestResults;
+      await rm(resultsFile);
       expect(normalizeResults(testResults)).toMatchSnapshot();
     },
     120 * ONE_SECOND_IN_MS,

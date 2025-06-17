@@ -4,12 +4,16 @@
   "tasks": {
     "build": {
       "dependsOn": [
+        "build:bin",
         "build:cjs",
         "build:esm",
         "build:license",
         "build:package-json",
         "build:readme"
       ]
+    },
+    "build:bin": {
+      "outputs": ["dist/**/*.sh"]
     },
     "build:cjs": {
       "outputs": ["dist/cjs/**"]

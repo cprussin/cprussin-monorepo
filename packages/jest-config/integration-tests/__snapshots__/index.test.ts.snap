@@ -1,17 +1,17 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`integration installs & works 1`] = `
 {
   "numFailedTestSuites": 0,
   "numFailedTests": 0,
-  "numPassedTestSuites": 8,
-  "numPassedTests": 8,
+  "numPassedTestSuites": 9,
+  "numPassedTests": 9,
   "numPendingTestSuites": 4,
   "numPendingTests": 1,
   "numRuntimeErrorTestSuites": 0,
   "numTodoTests": 0,
-  "numTotalTestSuites": 12,
-  "numTotalTests": 9,
+  "numTotalTestSuites": 13,
+  "numTotalTests": 10,
   "openHandles": [],
   "snapshot": {
     "added": 0,
@@ -172,6 +172,26 @@ exports[`integration installs & works 1`] = `
       "name": "mocked-root-dir/pnpm-lock.yaml",
       "startTime": 0,
       "status": "skipped",
+      "summary": "",
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "duration": 0,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "",
+          "numPassingAsserts": 1,
+          "status": "passed",
+          "title": "",
+        },
+      ],
+      "endTime": 0,
+      "message": "",
+      "name": "mocked-root-dir/pnpm-workspace.yaml",
+      "startTime": 0,
+      "status": "passed",
       "summary": "",
     },
     {

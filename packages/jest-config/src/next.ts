@@ -1,12 +1,10 @@
-import { createRequire } from "node:module";
+import { fileURLToPath } from "node:url";
 
 import type { Config } from "@jest/types";
 import nextJest from "next/jest.js";
 
 import type { ExtraConfigs } from "./config.js";
 import { config, wrap } from "./config.js";
-
-const resolve = createRequire(import.meta.url).resolve;
 
 /**
  * This configuration adds to the base config by wrapping the unit test project
@@ -44,8 +42,12 @@ export const nextjs = (
       wrapper: async (cfg) =>
         wrap(extra.unit?.wrapper, await nextJest.default({ dir: "./" })(cfg)()),
       config: {
-        testEnvironment: resolve("jest-environment-jsdom"),
-        setupFilesAfterEnv: [resolve("@testing-library/jest-dom")],
+        testEnvironment: fileURLToPath(
+          import.meta.resolve("jest-environment-jsdom"),
+        ),
+        setupFilesAfterEnv: [
+          fileURLToPath(import.meta.resolve("@testing-library/jest-dom")),
+        ],
         ...extra.unit?.config,
       },
     },

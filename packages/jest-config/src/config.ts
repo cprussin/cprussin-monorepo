@@ -1,9 +1,7 @@
-import { createRequire } from "node:module";
+import { fileURLToPath } from "node:url";
 
 import type { Config } from "@jest/types";
 import { getSupportInfo } from "prettier";
-
-const resolve = createRequire(import.meta.url).resolve;
 
 /**
  * This is the type for values in the optional object that can be passed to each
@@ -106,7 +104,9 @@ export const config = async (
           name: "format",
           color: "white",
         },
-        runner: resolve("@cprussin/jest-runner-prettier"),
+        runner: fileURLToPath(
+          import.meta.resolve("@cprussin/jest-runner-prettier"),
+        ),
         moduleFileExtensions: prettierExtensions.map((ext) =>
           ext.replace(/\./, ""),
         ),
@@ -118,7 +118,9 @@ export const config = async (
           name: "lint",
           color: "magenta",
         },
-        runner: resolve("@cprussin/jest-runner-eslint"),
+        runner: fileURLToPath(
+          import.meta.resolve("@cprussin/jest-runner-eslint"),
+        ),
         testMatch: ["<rootDir>/**/*"],
       }),
     ],
