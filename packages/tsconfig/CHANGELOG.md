@@ -1,5 +1,11 @@
 # @cprussin/tsconfig
 
+## 4.0.0
+
+### Major Changes
+
+- b34de47: Update dependencies and impose Node v22 as the minimum engine version
+
 ## 3.1.2
 
 ### Patch Changes
