@@ -18,7 +18,7 @@
         build = "${final.lib.getExe final.pnpm} turbo run build";
         build-docs = "${final.lib.getExe final.pnpm} turbo run build:docs";
 
-        check-commits = "${final.nodePackages.pnpm}/bin/pnpm exec commitlint --";
+        check-commits = "${final.lib.getExe final.pnpm} exec commitlint --";
 
         publish = final.writeShellScript "publish" ''
           set -e
@@ -27,7 +27,7 @@
             mv "$package-old/dist" "$package"
             rm -rf "$package-old"
           done
-          ${final.nodePackages.pnpm}/bin/pnpm exec changeset publish
+          ${final.lib.getExe final.pnpm} exec changeset publish
         '';
 
         test = {
@@ -59,6 +59,7 @@
           final.nodejs
           final.pnpm
         ];
+        FORCE_COLOR = 1;
       };
     };
   in

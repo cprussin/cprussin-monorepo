@@ -5,7 +5,7 @@ import { promisify } from "node:util";
 
 const ONE_SECOND_IN_MS = 1000;
 
-const TEST_DIR = path.join(__dirname, "__fixtures__", "test-package");
+const TEST_DIR = path.join(import.meta.dirname, "__fixtures__", "test-package");
 const NODE_MODULES = path.join(TEST_DIR, "node_modules");
 
 const execAsync = promisify(exec);
@@ -22,7 +22,7 @@ describe("integration", () => {
   it(
     "installs & works",
     async () => {
-      await execAsync("pnpm --ignore-workspace i", { cwd: TEST_DIR });
+      await execAsync("pnpm i", { cwd: TEST_DIR });
       const { stdout } = await execAsync(
         "pnpm exec tsc --incremental false --pretty false || true",
         { cwd: TEST_DIR },

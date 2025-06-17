@@ -20,8 +20,8 @@
  * export { base as default } from "@cprussin/jest-config";
  * ```
  *
- * 2. Run `jest` to run format checks, lint checks, unit tests, and integration
- *    tests, or use `--selectProjects` to run a [subset of
+ * 2. Run `run-jest --color always` to run format checks, lint checks, unit tests, and
+ *    integration tests, or use `--selectProjects` to run a [subset of
  *    checks](#md:projects).
  *
  * 3. Add scripts to your `package.json` if you'd like. For instance:
@@ -29,10 +29,10 @@
  * ```json
  * {
  *   "scripts": {
- *     "test:format": "jest --selectProjects format",
- *     "test:integration": "jest --selectProjects integration",
- *     "test:lint": "jest --selectProjects lint",
- *     "test:unit": "jest --coverage --selectProjects unit"
+ *     "test:format": "run-jest --color always --selectProjects format",
+ *     "test:integration": "run-jest --color always --selectProjects integration",
+ *     "test:lint": "run-jest --color always --selectProjects lint",
+ *     "test:unit": "run-jest --color always --coverage --selectProjects unit"
  *   }
  * }
  * ```
@@ -49,7 +49,7 @@
  * - `lint`: Run eslint checks using `jest-runner-eslint`.
  * - `unit`: Need I say more?
  *
- * Running `jest` will run all four projects. You can run a subset of the
+ * Running `run-jest --color always` will run all four projects. You can run a subset of the
  * projects using jest's `--selectProjects` argument, as usual.
  *
  * # Options
@@ -95,15 +95,27 @@
  * `wrapper`).
  */
 
-import { createRequire } from "node:module";
-import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 import type { Config } from "@jest/types";
 
 import type { ExtraConfigs } from "./config.js";
 import { config } from "./config.js";
 
-const resolve = createRequire(import.meta.url).resolve;
+const testConfig = {
+  moduleNameMapper: {
+    "^(\\.{1,2}/.*)\\.js$": "$1",
+  },
+  extensionsToTreatAsEsm: [".jsx", ".ts", ".tsx", ".mts"],
+  transform: {
+    "^.+\\.m?[tj]sx?$": [
+      fileURLToPath(import.meta.resolve("ts-jest")),
+      {
+        useESM: true,
+      },
+    ],
+  },
+} satisfies Config.InitialOptions;
 
 /**
  * The base config which is recommended in most cases that don't need DOM
@@ -131,7 +143,7 @@ const resolve = createRequire(import.meta.url).resolve;
  * @param extra - extensions and wrappers for the projects and global jest config
  * @returns the jest config
  */
-export const base = (
+export const base = async (
   extra: ExtraConfigs = {},
 ): Promise<Config.InitialOptions> =>
   config({
@@ -139,52 +151,14 @@ export const base = (
     unit: {
       ...extra.unit,
       config: {
-        preset: path.dirname(
-          resolve("ts-jest/presets/default-esm/jest-preset.js"),
-        ),
-        // TODO This transform is here because of
-        // https://github.com/kulshekhar/ts-jest/issues/4081, see specifically
-        // https://github.com/kulshekhar/ts-jest/issues/4081#issuecomment-1503684089.
-        // There's probably a better way to fix this, we should find the right
-        // fix and use it.
-        transform: {
-          "^.+\\.tsx?$": [
-            "ts-jest",
-            {
-              isolatedModules: true,
-              useESM: true,
-            },
-          ],
-        },
-        moduleNameMapper: {
-          "^(\\.{1,2}/.*)\\.js$": "$1",
-        },
+        ...testConfig,
         ...extra.unit?.config,
       },
     },
     integration: {
       ...extra.integration,
       config: {
-        preset: path.dirname(
-          resolve("ts-jest/presets/default-esm/jest-preset.js"),
-        ),
-        // TODO This transform is here because of
-        // https://github.com/kulshekhar/ts-jest/issues/4081, see specifically
-        // https://github.com/kulshekhar/ts-jest/issues/4081#issuecomment-1503684089.
-        // There's probably a better way to fix this, we should find the right
-        // fix and use it.
-        transform: {
-          "^.+\\.tsx?$": [
-            "ts-jest",
-            {
-              isolatedModules: true,
-              useESM: true,
-            },
-          ],
-        },
-        moduleNameMapper: {
-          "^(\\.{1,2}/.*)\\.js$": "$1",
-        },
+        ...testConfig,
         ...extra.integration?.config,
       },
     },

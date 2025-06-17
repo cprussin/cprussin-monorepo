@@ -12,6 +12,7 @@
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
     "inlineSources": false,
+    "isolatedModules": true,
     "lib": ["esnext"],
     "module": "nodenext",
     "noEmit": true,

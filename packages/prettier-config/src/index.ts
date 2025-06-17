@@ -36,14 +36,12 @@
  * ```
  */
 
-import { createRequire } from "node:module";
+import { fileURLToPath } from "node:url";
 
 import type { Config } from "prettier";
 import type { PluginOptions } from "prettier-plugin-tailwindcss";
 
 export { mergeConfigs } from "./merge-configs.js";
-
-const { resolve } = createRequire(import.meta.url);
 
 /**
  * The base config. It's literally just an empty object currently. If I ever
@@ -61,7 +59,7 @@ export const base: Config = {};
 export const tailwind = (
   tailwindConfig: string,
 ): Config & Partial<PluginOptions> => ({
-  plugins: [resolve("prettier-plugin-tailwindcss")],
+  plugins: [fileURLToPath(import.meta.resolve("prettier-plugin-tailwindcss"))],
   tailwindFunctions: ["clsx", "classnames"],
   tailwindConfig,
 });

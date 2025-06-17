@@ -16,11 +16,12 @@ packages:
 
   '@cprussin/prettier-config@file:../../../dist':
     resolution: {directory: ../../../dist, type: directory}
+    engines: {node: ^22}
     peerDependencies:
       prettier: ^3.5.3
 
-  prettier-plugin-tailwindcss@0.6.11:
-    resolution: {integrity: sha512-YxaYSIvZPAqhrrEpRtonnrXdghZg1irNg4qrjboCXrpybLWVs55cW2N3juhspVJiO0JBvYJT8SYsJpc8OQSnsA==}
+  prettier-plugin-tailwindcss@0.6.12:
+    resolution: {integrity: sha512-OuTQKoqNwV7RnxTPwXWzOFXy6Jc4z8oeRZYGuMpRyG3WbuR3jjXdQFK8qFBMBx8UHWdHrddARz2fgUenild6aw==}
     engines: {node: '>=14.21.3'}
     peerDependencies:
       '@ianvs/prettier-plugin-sort-imports': '*'
@@ -84,7 +85,7 @@ snapshots:
   '@cprussin/prettier-config@file:../../../dist(prettier@3.5.3)':
     dependencies:
       prettier: 3.5.3
-      prettier-plugin-tailwindcss: 0.6.11(prettier@3.5.3)
+      prettier-plugin-tailwindcss: 0.6.12(prettier@3.5.3)
     transitivePeerDependencies:
       - '@ianvs/prettier-plugin-sort-imports'
       - '@prettier/plugin-pug'
@@ -103,7 +104,7 @@ snapshots:
       - prettier-plugin-style-order
       - prettier-plugin-svelte
 
-  prettier-plugin-tailwindcss@0.6.11(prettier@3.5.3):
+  prettier-plugin-tailwindcss@0.6.12(prettier@3.5.3):
     dependencies:
       prettier: 3.5.3
 
