@@ -1,6 +1,6 @@
 {
   "name": "@cprussin/tsconfig",
-  "version": "3.1.2",
+  "version": "4.0.0",
   "private": true,
   "description": "A set of strict shared typescript configs",
   "engines": {

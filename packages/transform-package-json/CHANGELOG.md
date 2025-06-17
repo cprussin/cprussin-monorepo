@@ -1,5 +1,11 @@
 # @cprussin/transform-package-json
 
+## 2.0.0
+
+### Major Changes
+
+- b34de47: Update dependencies and impose Node v22 as the minimum engine version
+
 ## 1.4.2
 
 ### Patch Changes
