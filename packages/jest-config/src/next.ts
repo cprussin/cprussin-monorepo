@@ -1,10 +1,9 @@
-import { fileURLToPath } from "node:url";
-
 import type { Config } from "@jest/types";
 import nextJest from "next/jest.js";
 
 import type { ExtraConfigs } from "./config.js";
 import { config, wrap } from "./config.js";
+import { domConfig } from "./dom.js";
 
 /**
  * This configuration adds to the base config by wrapping the unit test project
@@ -42,12 +41,7 @@ export const nextjs = (
       wrapper: async (cfg) =>
         wrap(extra.unit?.wrapper, await nextJest.default({ dir: "./" })(cfg)()),
       config: {
-        testEnvironment: fileURLToPath(
-          import.meta.resolve("jest-environment-jsdom"),
-        ),
-        setupFilesAfterEnv: [
-          fileURLToPath(import.meta.resolve("@testing-library/jest-dom")),
-        ],
+        ...domConfig,
         ...extra.unit?.config,
       },
     },
