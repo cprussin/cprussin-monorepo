@@ -46,6 +46,12 @@
         "types": "./dist/esm/next.d.ts",
         "default": "./dist/esm/next.js"
       }
+    },
+    "./web": {
+      "import": {
+        "types": "./dist/esm/web.d.ts",
+        "default": "./dist/esm/web.js"
+      }
     }
   },
   "scripts": {

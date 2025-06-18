@@ -7,8 +7,7 @@ import type { FormattedTestResults } from "@jest/test-result";
 
 const ONE_SECOND_IN_MS = 1000;
 
-const TEST_DIR = path.join(import.meta.dirname, "__fixtures__", "test-package");
-const NODE_MODULES = path.join(TEST_DIR, "node_modules");
+const FIXTURES_DIR = path.join(import.meta.dirname, "__fixtures__");
 
 const execAsync = promisify(exec);
 
@@ -26,39 +25,62 @@ type PatchedFormattedTestResults = Omit<FormattedTestResults, "testResults"> & {
   })[];
 };
 
+const runInFixturePackage = async <T>(
+  packageName: string,
+  cb: (testDir: string) => Promise<T>,
+): Promise<T> => {
+  const testDir = path.join(FIXTURES_DIR, packageName);
+  const nodeModules = path.join(testDir, "node_modules");
+  await execAsync("pnpm i", { cwd: testDir });
+  const results = await cb(testDir);
+  await rm(nodeModules, { recursive: true });
+  return results;
+};
+
+const runJestInFixturePackage = async (packageName: string) =>
+  runInFixturePackage(packageName, async (testDir) => {
+    const resultsFile = path.join(testDir, "test-results.json");
+    await execAsync(
+      `pnpm exec run-jest --colors --json --outputFile ${resultsFile} .`,
+      {
+        cwd: testDir,
+        // eslint-disable-next-line n/no-process-env
+        env: { ...process.env, FORCE_COLOR: "0" },
+      },
+    );
+    const results = JSON.parse(
+      await readFile(resultsFile, "utf8"),
+    ) as PatchedFormattedTestResults;
+    await rm(resultsFile);
+    return normalizeResults(testDir, results);
+  });
+
 describe("integration", () => {
-  beforeEach(async () => {
-    await rm(NODE_MODULES, { recursive: true, force: true });
+  describe("base", () => {
+    it(
+      "installs & works",
+      async () => {
+        const results = await runJestInFixturePackage("test-package");
+        expect(results).toMatchSnapshot();
+      },
+      120 * ONE_SECOND_IN_MS,
+    );
   });
 
-  afterEach(async () => {
-    await rm(NODE_MODULES, { recursive: true });
+  describe("web", () => {
+    it(
+      "installs & works",
+      async () => {
+        const results = await runJestInFixturePackage("test-web-package");
+        expect(results).toMatchSnapshot();
+      },
+      120 * ONE_SECOND_IN_MS,
+    );
   });
-
-  it(
-    "installs & works",
-    async () => {
-      const resultsFile = path.join(TEST_DIR, "test-results.json");
-      await execAsync("pnpm i", { cwd: TEST_DIR });
-      await execAsync(
-        `pnpm exec run-jest --colors --json --outputFile ${resultsFile} .`,
-        {
-          cwd: TEST_DIR,
-          // eslint-disable-next-line n/no-process-env
-          env: { ...process.env, FORCE_COLOR: "0" },
-        },
-      );
-      const testResults = JSON.parse(
-        await readFile(resultsFile, "utf8"),
-      ) as PatchedFormattedTestResults;
-      await rm(resultsFile);
-      expect(normalizeResults(testResults)).toMatchSnapshot();
-    },
-    120 * ONE_SECOND_IN_MS,
-  );
 });
 
 const normalizeResults = (
+  testDir: string,
   results: PatchedFormattedTestResults,
 ): PatchedFormattedTestResults => ({
   ...results,
@@ -69,13 +91,16 @@ const normalizeResults = (
       ...testResult,
       startTime: 0,
       endTime: 0,
-      name: testResult.name.replace(TEST_DIR, "mocked-root-dir"),
+      name: testResult.name.replace(testDir, "mocked-root-dir"),
       assertionResults: testResult.assertionResults.map((assertionResult) => ({
         ...assertionResult,
         duration: 0,
+        ...("startAt" in assertionResult && {
+          startAt: 0,
+        }),
         ...("testFilePath" in assertionResult && {
           testFilePath: assertionResult.testFilePath.replace(
-            TEST_DIR,
+            testDir,
             "mocked_root_dir",
           ),
         }),
