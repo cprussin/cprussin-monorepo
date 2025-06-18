@@ -39,10 +39,4 @@ export const web = (extra: ExtraConfigs = {}): Promise<Config.InitialOptions> =>
         ...extra.unit?.config,
       },
     },
-    integration: {
-      config: {
-        ...domConfig,
-        ...extra.integration?.config,
-      },
-    },
   });
