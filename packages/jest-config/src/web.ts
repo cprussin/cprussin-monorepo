@@ -11,17 +11,17 @@ import { base } from "./index.js";
  * @example
  * ```js
  * // jest.config.js
- * export { dom as default } from "@cprussin/jest-config";
+ * export { web as default } from "@cprussin/jest-config/web";
  * ```
  *
  * @example
  * ```js
  * // jest.config.js
- * import { dom } from "@cprussin/jest-config";
- * export default dom({
+ * import { web } from "@cprussin/jest-config/web";
+ * export default web({
  *   global: {
  *     config: {
- *       passWithnoTests: true
+ *       passWithNoTests: true
  *     }
  *   }
  * })
