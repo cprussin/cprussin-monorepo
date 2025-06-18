@@ -1,5 +1,11 @@
 # @cprussin/jest-config
 
+## 3.1.0
+
+### Minor Changes
+
+- ff7e6fd: Add web jest config
+
 ## 3.0.0
 
 ### Major Changes
