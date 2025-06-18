@@ -1,5 +1,11 @@
 # @cprussin/jest-config
 
+## 3.1.1
+
+### Patch Changes
+
+- 93d7d38: Properly export web config
+
 ## 3.1.0
 
 ### Minor Changes
