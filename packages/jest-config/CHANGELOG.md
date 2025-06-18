@@ -1,5 +1,11 @@
 # @cprussin/jest-config
 
+## 3.1.2
+
+### Patch Changes
+
+- 9da4efd: Don't use jsdom for integration tests
+
 ## 3.1.1
 
 ### Patch Changes
