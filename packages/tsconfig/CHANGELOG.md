@@ -1,5 +1,11 @@
 # @cprussin/tsconfig
 
+## 4.0.1
+
+### Patch Changes
+
+- 3aba50c: Fix react tsconfig to use react-jsx instead of preserve, only use preserve for nextjs tsconfig
+
 ## 4.0.0
 
 ### Major Changes
