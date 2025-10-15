@@ -52,6 +52,7 @@ import eslintPluginJsonc from "eslint-plugin-jsonc";
 // @ts-expect-error this module is not typed
 import _jsxA11y from "eslint-plugin-jsx-a11y";
 import n from "eslint-plugin-n";
+import eslintPluginPrettierRecommend from "eslint-plugin-prettier/recommended";
 import reactPlugin from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import storybookPlugin from "eslint-plugin-storybook";
@@ -117,6 +118,7 @@ export const base: FlatConfig.ConfigArray = [
 
   js.configs.recommended,
   prettier,
+  eslintPluginPrettierRecommend,
   unicorn.configs.recommended,
   n.configs["flat/recommended"],
   ...turbo,
