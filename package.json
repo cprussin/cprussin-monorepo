@@ -15,7 +15,7 @@
     "test:lint": "run-jest --colors --selectProjects lint"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.4",
+    "@changesets/cli": "^2.29.7",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@cprussin/eslint-config": "workspace:*",
@@ -23,7 +23,7 @@
     "@cprussin/prettier-config": "workspace:*",
     "eslint": "^9.29.0",
     "jest": "^30.0.0",
-    "prettier": "^3.5.3",
+    "prettier": "^3.6.2",
     "turbo": "^2.5.4",
     "typedoc": "^0.28.5",
     "typescript": "^5.8.3"
