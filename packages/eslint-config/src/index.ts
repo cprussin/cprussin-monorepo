@@ -81,6 +81,7 @@ const compat = new FlatCompat({
   resolvePluginsRelativeTo: import.meta.dirname,
 });
 
+
 const match = (
   files: string[],
   configs: FlatConfig.ConfigArray,
@@ -174,6 +175,14 @@ export const base: FlatConfig.ConfigArray = [
           "import/consistent-type-specifier-style": [
             "error",
             "prefer-top-level",
+          ],
+          "no-restricted-syntax": [
+            "error",
+            {
+              selector: "TSEnumDeclaration",
+              message:
+                "TypeScript enums are disallowed. Use union types or const objects instead.",
+            },
           ],
         },
       },
