@@ -1,5 +1,11 @@
 # @cprussin/eslint-config
 
+## 5.1.0
+
+### Minor Changes
+
+- f0f1782: added an eslint config rule to error whenever a typescript enum is found to be used.
+
 ## 5.0.0
 
 ### Major Changes
