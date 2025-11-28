@@ -175,6 +175,14 @@ export const base: FlatConfig.ConfigArray = [
             "error",
             "prefer-top-level",
           ],
+          "no-restricted-syntax": [
+            "error",
+            {
+              selector: "TSEnumDeclaration",
+              message:
+                "TypeScript enums are disallowed. Use union types or const objects instead.",
+            },
+          ],
         },
       },
     ],
