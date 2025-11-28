@@ -81,7 +81,6 @@ const compat = new FlatCompat({
   resolvePluginsRelativeTo: import.meta.dirname,
 });
 
-
 const match = (
   files: string[],
   configs: FlatConfig.ConfigArray,
