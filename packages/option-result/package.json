@@ -4,7 +4,7 @@
   "private": true,
   "description": "Yet another Typescript clone of the rust `Option` & `Result` enums.",
   "engines": {
-    "node": "^22"
+    "node": ">=22"
   },
   "keywords": [
     "option",

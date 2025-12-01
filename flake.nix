@@ -51,6 +51,10 @@
       };
     });
 
+    node-overlay = final: _: {
+      nodejs = final.nodejs_24;
+    };
+
     project-shell-overlay = final: _: {
       project-shell = final.mkShell {
         name = "project-shell";
@@ -69,7 +73,7 @@
         system: let
           pkgs = import nixpkgs {
             inherit system;
-            overlays = [cli-overlay project-shell-overlay];
+            overlays = [node-overlay cli-overlay project-shell-overlay];
             config = {};
           };
         in {

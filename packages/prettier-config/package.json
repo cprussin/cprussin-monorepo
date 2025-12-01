@@ -4,7 +4,7 @@
   "private": true,
   "description": "A shared prettier config (currently empty)",
   "engines": {
-    "node": "^22"
+    "node": ">=22"
   },
   "keywords": [
     "prettier",
