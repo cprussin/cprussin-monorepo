@@ -30,7 +30,9 @@ jobs:
         run: nix develop --command cli build
 
       - name: Prepare for Trusted Publishing
-        run: echo -e 'registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}\nregistry=https://registry.npmjs.org/' > .npmrc
+        uses: actions/setup-node@v4
+        with:
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
