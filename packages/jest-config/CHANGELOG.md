@@ -1,5 +1,11 @@
 # @cprussin/jest-config
 
+## 3.1.3
+
+### Patch Changes
+
+- 2382715: Loosen engine range to include node 24
+
 ## 3.1.2
 
 ### Patch Changes
