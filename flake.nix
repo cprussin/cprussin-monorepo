@@ -27,7 +27,7 @@
             mv "$package-old/dist" "$package"
             rm -rf "$package-old"
           done
-          ${final.lib.getExe final.pnpm} exec changeset publish
+          ${final.lib.getExe final.pnpm} release
         '';
 
         test = {
