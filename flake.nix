@@ -29,6 +29,8 @@
           done
 
           echo "Let's see what's in the npmrc"
+          echo $NPM_CONFIG_USERCONFIG
+          cat $NPM_CONFIG_USERCONFIG
           ls -ahl
           cat .npmrc
 
