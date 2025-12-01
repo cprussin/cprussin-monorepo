@@ -28,6 +28,10 @@
             rm -rf "$package-old"
           done
 
+          echo "Let's see what's in the npmrc"
+          ls -ahl
+          cat .npmrc
+
           ${final.lib.getExe final.pnpm} exec changeset publish
         '';
 
