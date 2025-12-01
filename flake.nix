@@ -28,10 +28,6 @@
             rm -rf "$package-old"
           done
 
-          # Set up npmrc for trusted publishing
-          echo 'registry.npmjs.org/:_authToken=''${NODE_AUTH_TOKEN}\nregistry=registry.npmjs.org/' > .nmprc
-          export NPM_CONFIG_USERCONFIG=.npmrc
-
           ${final.lib.getExe final.pnpm} exec changeset publish
         '';
 
