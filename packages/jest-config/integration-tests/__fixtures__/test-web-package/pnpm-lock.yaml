@@ -193,7 +193,7 @@ packages:
 
   '@cprussin/jest-config@file:../../../dist':
     resolution: {directory: ../../../dist, type: directory}
-    engines: {node: ^22}
+    engines: {node: '>=22'}
     hasBin: true
     peerDependencies:
       jest: ^29.7.0

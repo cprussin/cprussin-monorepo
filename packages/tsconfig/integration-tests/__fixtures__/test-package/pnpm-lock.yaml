@@ -16,7 +16,7 @@ packages:
 
   '@cprussin/tsconfig@file:../../../dist':
     resolution: {directory: ../../../dist, type: directory}
-    engines: {node: ^22}
+    engines: {node: '>=22'}
     peerDependencies:
       typescript: ^5.8.2
 
