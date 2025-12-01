@@ -38,7 +38,7 @@ packages:
 
   '@cprussin/eslint-config@file:../../../dist':
     resolution: {directory: ../../../dist, type: directory}
-    engines: {node: ^22}
+    engines: {node: '>=22'}
     peerDependencies:
       eslint: ^9.22.0
 

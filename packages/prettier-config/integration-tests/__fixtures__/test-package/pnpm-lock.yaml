@@ -16,7 +16,7 @@ packages:
 
   '@cprussin/prettier-config@file:../../../dist':
     resolution: {directory: ../../../dist, type: directory}
-    engines: {node: ^22}
+    engines: {node: '>=22'}
     peerDependencies:
       prettier: ^3.5.3
 
