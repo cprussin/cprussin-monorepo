@@ -1,5 +1,11 @@
 # @cprussin/prettier-config
 
+## 3.0.1
+
+### Patch Changes
+
+- 2382715: Loosen engine range to include node 24
+
 ## 3.0.0
 
 ### Major Changes

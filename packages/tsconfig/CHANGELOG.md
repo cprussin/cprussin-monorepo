@@ -1,5 +1,11 @@
 # @cprussin/tsconfig
 
+## 4.0.2
+
+### Patch Changes
+
+- 2382715: Loosen engine range to include node 24
+
 ## 4.0.1
 
 ### Patch Changes

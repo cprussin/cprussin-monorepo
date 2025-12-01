@@ -1,5 +1,11 @@
 # @cprussin/eslint-config
 
+## 5.1.1
+
+### Patch Changes
+
+- 2382715: Loosen engine range to include node 24
+
 ## 5.1.0
 
 ### Minor Changes
