@@ -32,7 +32,11 @@ jobs:
       - name: Prepare for Trusted Publishing
         run: |
           pwd
+          ls -ahl
+          echo -e "\n\n CREATING FILE \n\n"
+          touch .npmrc
           echo -e 'registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}\nregistry=registry.npmjs.org/' > .nmprc
+          ls -ahl
           cat .npmrc
 
       - name: Create Release Pull Request or Publish to npm
