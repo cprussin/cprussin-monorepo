@@ -1,5 +1,11 @@
 # @cprussin/transform-package-json
 
+## 2.1.0
+
+### Minor Changes
+
+- 054e52b: Add option to preserve privacy
+
 ## 2.0.0
 
 ### Major Changes
