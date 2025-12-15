@@ -110,6 +110,11 @@ export type Options = {
   removeType?: boolean;
 
   /**
+   * If `true`, the `private` field will be stripped out when transforming.
+   */
+  removePrivate?: boolean;
+
+  /**
    * If passed, this is the new root for relative paths in `main`, `types`,
    * `bin`, and `exports`, relative to the old root.  Typically this is the
    * directory where the output will be written relative to the directory where
@@ -146,7 +151,7 @@ export const transformPackageJsonContents = (
   const strippedContents = omit(contents, [
     "devDependencies",
     "scripts",
-    "private",
+    ...(options?.removePrivate ? ["private"] : []),
     ...(options?.removeType ? ["type"] : []),
   ]);
   return options?.relativePathRoot

@@ -22,17 +22,35 @@ describe("integration", () => {
     await rm(OUT_PACKAGE_JSON);
   });
 
-  it(
-    "installs & works",
-    async () => {
-      await execAsync("pnpm i", { cwd: TEST_DIR });
-      await execAsync(
-        "pnpm exec transform-package-json ./package.json ./out.package.json",
-        { cwd: TEST_DIR },
-      );
-      const out = await readFile(OUT_PACKAGE_JSON, "utf8");
-      expect(out).toMatchSnapshot();
-    },
-    30 * ONE_SECOND_IN_MS,
-  );
+  describe("when removing private", () => {
+    it(
+      "installs & works",
+      async () => {
+        await execAsync("pnpm i", { cwd: TEST_DIR });
+        await execAsync(
+          "pnpm exec transform-package-json ./package.json ./out.package.json",
+          { cwd: TEST_DIR },
+        );
+        const out = await readFile(OUT_PACKAGE_JSON, "utf8");
+        expect(out).toMatchSnapshot();
+      },
+      30 * ONE_SECOND_IN_MS,
+    );
+  });
+
+  describe("when not removing private", () => {
+    it(
+      "installs & works",
+      async () => {
+        await execAsync("pnpm i", { cwd: TEST_DIR });
+        await execAsync(
+          "pnpm exec transform-package-json --no-remove-private ./package.json ./out.package.json",
+          { cwd: TEST_DIR },
+        );
+        const out = await readFile(OUT_PACKAGE_JSON, "utf8");
+        expect(out).toMatchSnapshot();
+      },
+      30 * ONE_SECOND_IN_MS,
+    );
+  });
 });

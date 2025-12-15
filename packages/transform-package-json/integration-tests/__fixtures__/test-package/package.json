@@ -1,6 +1,7 @@
 {
   "name": "test-package",
   "type": "module",
+  "private": true,
   "devDependencies": {
     "@cprussin/transform-package-json": "file:../../../dist"
   }
