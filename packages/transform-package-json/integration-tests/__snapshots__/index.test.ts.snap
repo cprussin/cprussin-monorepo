@@ -1,6 +1,14 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`integration installs & works 1`] = `
+exports[`integration when not removing private installs & works 1`] = `
+"{
+  "name": "test-package",
+  "type": "module",
+  "private": true
+}"
+`;
+
+exports[`integration when removing private installs & works 1`] = `
 "{
   "name": "test-package",
   "type": "module"

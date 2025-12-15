@@ -24,15 +24,23 @@ export const cli = async (
             demandOption: true,
           })
           .options({
-            removeType: {
+            "remove-type": {
               describe:
                 "if set, the `type` field of the `package.json` will be removed as well",
               type: "boolean",
               default: false,
             },
+          })
+          .options({
+            "remove-private": {
+              describe:
+                "if set, the `private` field of the `package.json` will be removed as well",
+              type: "boolean",
+              default: true,
+            },
           }),
-      ({ source, dest, removeType }) =>
-        transformPackageJson(source, dest, { removeType }),
+      ({ source, dest, removeType, removePrivate }) =>
+        transformPackageJson(source, dest, { removeType, removePrivate }),
     )
     .help().argv;
 };

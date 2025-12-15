@@ -40,28 +40,47 @@ describe("transformPackageJsonContents", () => {
     expect(transformed).toStrictEqual({ foo: "bar" });
   });
 
-  it("removes private", () => {
-    const transformed = transformPackageJsonContents({
-      foo: "bar",
-      private: true,
+  describe("when not setting `removePrivate`", () => {
+    it("dose not remove private", () => {
+      const transformed = transformPackageJsonContents({
+        foo: "bar",
+        private: true,
+      });
+      expect(transformed).toStrictEqual({ foo: "bar", private: true });
     });
-    expect(transformed).toStrictEqual({ foo: "bar" });
   });
 
-  it("does not remove type when not set", () => {
-    const transformed = transformPackageJsonContents({
-      foo: "bar",
-      type: "module",
+  describe("when setting `removePrivate`", () => {
+    it("removes private", () => {
+      const transformed = transformPackageJsonContents(
+        {
+          foo: "bar",
+          private: true,
+        },
+        { removePrivate: true },
+      );
+      expect(transformed).toStrictEqual({ foo: "bar" });
     });
-    expect(transformed).toStrictEqual({ foo: "bar", type: "module" });
   });
 
-  it("removes type when not set", () => {
-    const transformed = transformPackageJsonContents(
-      { foo: "bar", type: "module" },
-      { removeType: true },
-    );
-    expect(transformed).toStrictEqual({ foo: "bar" });
+  describe("when not setting `removeType`", () => {
+    it("does not remove type", () => {
+      const transformed = transformPackageJsonContents({
+        foo: "bar",
+        type: "module",
+      });
+      expect(transformed).toStrictEqual({ foo: "bar", type: "module" });
+    });
+  });
+
+  describe("when setting `removeType`", () => {
+    it("removes type", () => {
+      const transformed = transformPackageJsonContents(
+        { foo: "bar", type: "module" },
+        { removeType: true },
+      );
+      expect(transformed).toStrictEqual({ foo: "bar" });
+    });
   });
 
   itHandlesRelativePathRoot(
@@ -192,6 +211,7 @@ describe("transformPackageJson", () => {
     );
     await transformPackageJson(packageJson, packageJsonOut, {
       removeType: true,
+      removePrivate: true,
     });
     const out = await readFile(packageJsonOut, "utf8");
     expect(JSON.parse(out)).toStrictEqual({
