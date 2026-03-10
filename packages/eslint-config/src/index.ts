@@ -39,16 +39,15 @@
  * ```
  */
 
-import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
+import next from "@next/eslint-plugin-next";
 import type { FlatConfig } from "@typescript-eslint/utils/ts-eslint";
 import prettier from "eslint-config-prettier";
 import turbo from "eslint-config-turbo/flat";
-// @ts-expect-error this module is not typed
-import _importPlugin from "eslint-plugin-import";
+import importPlugin from "eslint-plugin-import";
 import jest from "eslint-plugin-jest";
 import jestDom from "eslint-plugin-jest-dom";
-import eslintPluginJsonc from "eslint-plugin-jsonc";
+import * as eslintPluginJsonc from "eslint-plugin-jsonc";
 // @ts-expect-error this module is not typed
 import _jsxA11y from "eslint-plugin-jsx-a11y";
 import n from "eslint-plugin-n";
@@ -64,22 +63,12 @@ import globals from "globals";
 import loadTailwindConfig from "tailwindcss/loadConfig.js";
 import tseslint from "typescript-eslint";
 
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-const importPlugin: {
-  flatConfigs: {
-    recommended: FlatConfig.Config;
-    typescript: FlatConfig.Config;
-  };
-} = _importPlugin;
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 const jsxA11y: { flatConfigs: { recommended: FlatConfig.Config } } = _jsxA11y;
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 const tailwindPlugin: {
   configs: { "flat/recommended": FlatConfig.ConfigArray };
 } = _tailwindPlugin;
-/* eslint-enable @typescript-eslint/no-unsafe-assignment */
-
-const compat = new FlatCompat({
-  resolvePluginsRelativeTo: import.meta.dirname,
-});
 
 const match = (
   files: string[],
@@ -195,7 +184,6 @@ export const base: FlatConfig.ConfigArray = [
 
   ...match(
     ["**/*.json"],
-    // @ts-expect-error Looks like this has a typing issue...
     eslintPluginJsonc.configs["flat/recommended-with-jsonc"],
   ),
 
@@ -272,7 +260,8 @@ export const react: FlatConfig.ConfigArray = [
   reactPlugin.configs.flat.recommended ?? {},
   reactPlugin.configs.flat["jsx-runtime"] ?? {},
   jsxA11y.flatConfigs.recommended,
-  reactHooks.configs["recommended-latest"],
+  // @ts-expect-error this isn't typed properly it seems
+  reactHooks.configs["recommended-latest"] as FlatConfig.Config,
 
   {
     settings: {
@@ -300,10 +289,8 @@ export const react: FlatConfig.ConfigArray = [
  */
 export const nextjs: FlatConfig.ConfigArray = [
   ...react,
-  ...compat.extends(
-    "plugin:@next/next/recommended",
-    "plugin:@next/next/core-web-vitals",
-  ),
+  next.configs.recommended,
+  next.configs["core-web-vitals"],
   {
     ignores: ["next-env.d.ts", ".next/**/*", ".env*.local"],
   },
@@ -351,6 +338,6 @@ export const tailwind = (tailwindConfig: string): FlatConfig.ConfigArray => {
 export const storybook: FlatConfig.ConfigArray = match(
   ["**/*.story.[tj]sx", "**/story.[tj]sx"],
   // @ts-expect-error Looks like this has a typing issue...
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
+
   storybookPlugin.configs["flat/csf-strict"],
 );

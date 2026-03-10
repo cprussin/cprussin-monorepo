@@ -86,7 +86,7 @@ const normalizeResults = (
   ...results,
   startTime: 0,
   testResults: results.testResults
-    .sort((a, b) => a.name.localeCompare(b.name))
+    .toSorted((a, b) => a.name.localeCompare(b.name))
     .map((testResult) => ({
       ...testResult,
       startTime: 0,

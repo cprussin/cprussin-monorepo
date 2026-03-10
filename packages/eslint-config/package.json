@@ -4,7 +4,7 @@
   "private": true,
   "description": "A set of strict base eslint configs",
   "engines": {
-    "node": ">=22"
+    "node": ">=22.16.0"
   },
   "keywords": [
     "eslint",
@@ -49,40 +49,40 @@
     "eslint": "^9.22.0"
   },
   "dependencies": {
-    "@eslint/eslintrc": "^3.3.1",
-    "@eslint/js": "^9.29.0",
-    "@next/eslint-plugin-next": "^15.3.3",
-    "eslint-config-prettier": "^10.1.5",
-    "eslint-config-turbo": "^2.5.4",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-jest": "^28.14.0",
+    "@eslint/eslintrc": "^3.3.5",
+    "@eslint/js": "^9",
+    "@next/eslint-plugin-next": "^16.1.6",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-config-turbo": "^2.8.15",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jest": "^29.15.0",
     "eslint-plugin-jest-dom": "^5.5.0",
-    "eslint-plugin-jsonc": "^2.20.1",
+    "eslint-plugin-jsonc": "^3.1.1",
     "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-n": "^17.20.0",
+    "eslint-plugin-n": "^17.24.0",
     "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-storybook": "^9.0.11",
-    "eslint-plugin-tailwindcss": "^3.18.0",
-    "eslint-plugin-testing-library": "^7.5.3",
-    "eslint-plugin-tsdoc": "^0.4.0",
-    "eslint-plugin-unicorn": "^59.0.1",
-    "globals": "^16.2.0",
-    "tailwindcss": "^3.0.0",
-    "typescript-eslint": "^8.34.1"
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-storybook": "^10.2.17",
+    "eslint-plugin-tailwindcss": "^3.18.2",
+    "eslint-plugin-testing-library": "^7.16.0",
+    "eslint-plugin-tsdoc": "^0.5.2",
+    "eslint-plugin-unicorn": "^63.0.0",
+    "globals": "^17.4.0",
+    "tailwindcss": "^3",
+    "typescript-eslint": "^8.57.0"
   },
   "devDependencies": {
     "@cprussin/transform-package-json": "workspace:*",
     "@cprussin/tsconfig": "workspace:*",
     "@types/eslint": "^9.6.1",
     "@types/jest": "^30.0.0",
-    "@types/node": "^24.0.3",
-    "@typescript-eslint/utils": "^8.34.1",
-    "eslint": "^9.29.0",
-    "jest": "^30.0.0",
-    "prettier": "^3.5.3",
-    "ts-morph": "^26.0.0",
-    "typedoc-plugin-markdown": "^4.6.4",
-    "typescript": "^5.8.3"
+    "@types/node": "^25.4.0",
+    "@typescript-eslint/utils": "^8.57.0",
+    "eslint": "^9.22.0",
+    "jest": "^30.3.0",
+    "prettier": "^3.8.1",
+    "ts-morph": "^27.0.2",
+    "typedoc-plugin-markdown": "^4.10.0",
+    "typescript": "^5.9.3"
   }
 }

@@ -1,10 +1,10 @@
 {
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@10.24.0",
+  "packageManager": "pnpm@10.30.3",
   "engines": {
-    "node": "^24.11.1",
-    "pnpm": "^10.24.0"
+    "node": "^24.13.0",
+    "pnpm": "^10.30.3"
   },
   "scripts": {
     "build:docs": "typedoc",
@@ -15,17 +15,17 @@
     "test:lint": "run-jest --colors --selectProjects lint"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.4",
-    "@commitlint/cli": "^19.8.1",
-    "@commitlint/config-conventional": "^19.8.1",
+    "@changesets/cli": "^2.30.0",
+    "@commitlint/cli": "^20.4.3",
+    "@commitlint/config-conventional": "^20.4.3",
     "@cprussin/eslint-config": "workspace:*",
     "@cprussin/jest-config": "workspace:*",
     "@cprussin/prettier-config": "workspace:*",
-    "eslint": "^9.29.0",
-    "jest": "^30.0.0",
-    "prettier": "^3.5.3",
-    "turbo": "^2.5.4",
-    "typedoc": "^0.28.5",
-    "typescript": "^5.8.3"
+    "eslint": "^9.22.0",
+    "jest": "^30.3.0",
+    "prettier": "^3.8.1",
+    "turbo": "^2.8.15",
+    "typedoc": "^0.28.17",
+    "typescript": "^5.9.3"
   }
 }

@@ -4,6 +4,7 @@
   "devDependencies": {
     "@cprussin/jest-config": "file:../../../dist",
     "@types/jest": "latest",
-    "jest": "latest"
+    "jest": "latest",
+    "typescript": "latest"
   }
 }

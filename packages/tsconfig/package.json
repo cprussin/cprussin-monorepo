@@ -4,7 +4,7 @@
   "private": true,
   "description": "A set of strict shared typescript configs",
   "engines": {
-    "node": ">=22"
+    "node": ">=22.16.0"
   },
   "keywords": [
     "typescript",
@@ -44,10 +44,10 @@
   "devDependencies": {
     "@cprussin/transform-package-json": "workspace:*",
     "@types/jest": "^30.0.0",
-    "@types/node": "^24.0.3",
-    "eslint": "^9.29.0",
-    "jest": "^30.0.0",
-    "prettier": "^3.5.3",
-    "typedoc-plugin-markdown": "^4.6.4"
+    "@types/node": "^25.4.0",
+    "eslint": "^9.22.0",
+    "jest": "^30.3.0",
+    "prettier": "^3.8.1",
+    "typedoc-plugin-markdown": "^4.10.0"
   }
 }

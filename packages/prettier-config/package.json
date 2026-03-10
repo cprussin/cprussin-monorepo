@@ -4,7 +4,7 @@
   "private": true,
   "description": "A shared prettier config (currently empty)",
   "engines": {
-    "node": ">=22"
+    "node": ">=22.16.0"
   },
   "keywords": [
     "prettier",
@@ -49,18 +49,18 @@
     "prettier": "^3.5.3"
   },
   "dependencies": {
-    "prettier-plugin-tailwindcss": "^0.6.12"
+    "prettier-plugin-tailwindcss": "^0.7.2"
   },
   "devDependencies": {
     "@cprussin/transform-package-json": "workspace:*",
     "@cprussin/tsconfig": "workspace:*",
-    "@jest/types": "^30.0.0",
+    "@jest/types": "^30.3.0",
     "@types/jest": "^30.0.0",
-    "@types/node": "^24.0.3",
-    "eslint": "^9.29.0",
-    "jest": "^30.0.0",
-    "prettier": "^3.5.3",
-    "typedoc-plugin-markdown": "^4.6.4",
-    "typescript": "^5.8.3"
+    "@types/node": "^25.4.0",
+    "eslint": "^9.22.0",
+    "jest": "^30.3.0",
+    "prettier": "^3.8.1",
+    "typedoc-plugin-markdown": "^4.10.0",
+    "typescript": "^5.9.3"
   }
 }

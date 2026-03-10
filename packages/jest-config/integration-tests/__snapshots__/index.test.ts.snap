@@ -197,6 +197,31 @@ exports[`integration base installs & works 1`] = `
     {
       "assertionResults": [
         {
+          "ancestorTitles": [
+            "sayHello",
+          ],
+          "duration": 0,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "sayHello says hello",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [],
+          "status": "passed",
+          "title": "says hello",
+        },
+      ],
+      "endTime": 0,
+      "message": "",
+      "name": "mocked-root-dir/src/index.test.ts",
+      "startTime": 0,
+      "status": "passed",
+      "summary": "",
+    },
+    {
+      "assertionResults": [
+        {
           "ancestorTitles": [],
           "duration": 0,
           "failureDetails": [],
@@ -233,31 +258,6 @@ exports[`integration base installs & works 1`] = `
       "name": "mocked-root-dir/src/index.test.ts",
       "startTime": 0,
       "status": "skipped",
-      "summary": "",
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "sayHello",
-          ],
-          "duration": 0,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "sayHello says hello",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 1,
-          "retryReasons": [],
-          "status": "passed",
-          "title": "says hello",
-        },
-      ],
-      "endTime": 0,
-      "message": "",
-      "name": "mocked-root-dir/src/index.test.ts",
-      "startTime": 0,
-      "status": "passed",
       "summary": "",
     },
     {
