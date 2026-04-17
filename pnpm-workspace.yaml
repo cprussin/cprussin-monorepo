@@ -1,12 +1,13 @@
 packages:
   - packages/*
-  - "!**/integration-tests/__fixtures__/**/*"
+  - '!**/integration-tests/__fixtures__/**/*'
 
 engineStrict: true
 
 managePackageManagerVersions: false
 
 onlyBuiltDependencies:
+  - bun
   - esbuild
   - sharp
   - unrs-resolver

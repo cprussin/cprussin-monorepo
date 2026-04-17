@@ -4,6 +4,7 @@
     "noEmit": false,
     "incremental": false,
     "declaration": true,
+    "rootDir": "./src",
     "types": ["node"]
   },
   "exclude": ["node_modules", "dist", "integration-tests"]
