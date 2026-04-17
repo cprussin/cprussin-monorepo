@@ -1,4 +1,7 @@
 {
-  "extends": "@cprussin/tsconfig/src/base.json",
+  "extends": "@cprussin/tsconfig/src/base-node.json",
+  "compilerOptions": {
+    "types": ["node", "jest"]
+  },
   "exclude": ["node_modules", "dist"]
 }

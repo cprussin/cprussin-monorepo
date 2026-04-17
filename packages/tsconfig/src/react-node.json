@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "./base.json",
+  "extends": "./dom-node.json",
   "compilerOptions": {
-    "lib": ["esnext", "webworker"]
+    "jsx": "react-jsx"
   }
 }

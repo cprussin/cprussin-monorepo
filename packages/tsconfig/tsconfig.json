@@ -1,5 +1,8 @@
 {
-  "extends": "./src/base.json",
+  "extends": "./src/base-node.json",
+  "compilerOptions": {
+    "types": ["node", "jest"]
+  },
   "exclude": [
     "node_modules",
     "dist",
