@@ -322,6 +322,12 @@ importers:
       '@cprussin/transform-package-json':
         specifier: workspace:*
         version: link:../transform-package-json
+      '@types/jest':
+        specifier: ^30.0.0
+        version: 30.0.0
+      '@types/node':
+        specifier: ^24.0.3
+        version: 24.0.3
       eslint:
         specifier: ^9.29.0
         version: 9.29.0(jiti@2.4.2)
