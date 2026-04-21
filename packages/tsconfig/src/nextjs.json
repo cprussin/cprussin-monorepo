@@ -1,10 +1,14 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "./react-node.json",
+  "extends": "./react.json",
   "compilerOptions": {
     "moduleResolution": "bundler",
     "module": "esnext",
-    "plugins": [{ "name": "next" }],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "jsx": "preserve"
   }
 }

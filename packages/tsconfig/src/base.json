@@ -13,7 +13,9 @@
     "incremental": true,
     "inlineSources": false,
     "isolatedModules": true,
-    "lib": ["esnext"],
+    "lib": [
+      "esnext"
+    ],
     "module": "nodenext",
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
@@ -27,7 +29,6 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "esnext",
-    "types": ["node"],
     "verbatimModuleSyntax": true
   }
 }
