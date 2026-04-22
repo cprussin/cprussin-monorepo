@@ -11,6 +11,9 @@ importers:
       '@cprussin/tsconfig':
         specifier: file:../../../dist
         version: file:../../../dist(typescript@5.8.3)
+      '@types/node':
+        specifier: ^24.0.3
+        version: 24.12.2
 
 packages:
 
@@ -18,12 +21,18 @@ packages:
     resolution: {directory: ../../../dist, type: directory}
     engines: {node: '>=22'}
     peerDependencies:
-      typescript: ^5.8.2
+      typescript: ^6.0.3
+
+  '@types/node@24.12.2':
+    resolution: {integrity: sha512-A1sre26ke7HDIuY/M23nd9gfB+nrmhtYyMINbjI1zHJxYteKR6qSMX56FsmjMcDb3SMcjJg5BiRRgOCC/yBD0g==}
 
   typescript@5.8.3:
     resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
     engines: {node: '>=14.17'}
     hasBin: true
+
+  undici-types@7.16.0:
+    resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
 
 snapshots:
 
@@ -31,4 +40,10 @@ snapshots:
     dependencies:
       typescript: 5.8.3
 
+  '@types/node@24.12.2':
+    dependencies:
+      undici-types: 7.16.0
+
   typescript@5.8.3: {}
+
+  undici-types@7.16.0: {}

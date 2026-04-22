@@ -11,6 +11,19 @@
  * - **pnpm**: `pnpm add -D @cprussin/tsconfig`
  * - **yarn**: `yarn add -D @cprussin/tsconfig`
  *
+ * These configs do not set the `types` array, so ambient `@types/*` packages
+ * (e.g. `@types/node`, `@types/bun`, `@types/jest`) are not loaded by default.
+ * Add the ones you need in your own `tsconfig.json`, for example:
+ *
+ * ```json
+ * {
+ *   "extends": "@cprussin/tsconfig/base.json",
+ *   "compilerOptions": {
+ *     "types": ["node"]
+ *   }
+ * }
+ * ```
+ *
  * # Usage
  *
  * Add the config you want to extend to your `tsconfig.json`, for example:
@@ -71,9 +84,9 @@
  * these options, but it might make sense to override the `target` or `lib`
  * options.
  *
- * Note that no options are set for JSX or for DOM libraries. If you need any of
- * that, you'll want to use one of the configs that extends `base.json` instead
- * of using `base.json` directly.
+ * Note that no options are set for JSX or for DOM libraries. If you need any
+ * of that, you'll want to use one of the configs that extends `base.json`
+ * instead of using it directly.
  *
  * ## `dom.json`
  *
@@ -84,8 +97,8 @@
  * }
  * ```
  *
- * Very simply extends the [`base.json`](#md:basejson) config by adding the
- * `dom` and `dom.iterable` libs.
+ * Extends the [`base.json`](#md:basejson) config by adding the `dom` and
+ * `dom.iterable` libs.
  *
  * ## `react.json`
  *
@@ -96,7 +109,7 @@
  * }
  * ```
  *
- * Adds the `"jsx": "preserve"` option to the [`dom.json`](#md:domjson) config.
+ * Adds the `"jsx": "react-jsx"` option to the [`dom.json`](#md:domjson) config.
  *
  * ## `nextjs.json`
  *
@@ -109,7 +122,8 @@
  *
  * Adds the [nextjs typescript
  * plugin](https://beta.nextjs.org/docs/configuring/typescript#using-the-typescript-plugin)
- * to the [`react.json`](#md:reactjson) config.
+ * to the [`react.json`](#md:reactjson) config, and switches `jsx` to `preserve`
+ * along with `module`/`moduleResolution` set for bundler-based workflows.
  *
  * ## `webworker.json`
  *

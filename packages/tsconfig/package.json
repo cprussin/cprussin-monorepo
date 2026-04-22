@@ -39,7 +39,7 @@
     "test:types": "tsc"
   },
   "peerDependencies": {
-    "typescript": "^5.8.2"
+    "typescript": "^6.0.3"
   },
   "devDependencies": {
     "@cprussin/transform-package-json": "workspace:*",

@@ -83,6 +83,6 @@
     "prettier": "^3.5.3",
     "ts-morph": "^26.0.0",
     "typedoc-plugin-markdown": "^4.6.4",
-    "typescript": "^5.8.3"
+    "typescript": "^6.0.3"
   }
 }
