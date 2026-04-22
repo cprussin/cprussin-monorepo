@@ -1,5 +1,11 @@
 # @cprussin/transform-package-json
 
+## 2.1.1
+
+### Patch Changes
+
+- 12f7302: Upgraded to the latest version of typescript and added bun typing support by creating dualing tsconfigs for both node and bun
+
 ## 2.1.0
 
 ### Minor Changes

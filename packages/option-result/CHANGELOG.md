@@ -1,5 +1,11 @@
 # @cprussin/option-result
 
+## 2.0.1
+
+### Patch Changes
+
+- 12f7302: Upgraded to the latest version of typescript and added bun typing support by creating dualing tsconfigs for both node and bun
+
 ## 2.0.0
 
 ### Major Changes
