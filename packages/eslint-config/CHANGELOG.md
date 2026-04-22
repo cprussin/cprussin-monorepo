@@ -1,5 +1,11 @@
 # @cprussin/eslint-config
 
+## 5.1.2
+
+### Patch Changes
+
+- 12f7302: Upgraded to the latest version of typescript and added bun typing support by creating dualing tsconfigs for both node and bun
+
 ## 5.1.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @cprussin/jest-config
 
+## 3.1.4
+
+### Patch Changes
+
+- 12f7302: Upgraded to the latest version of typescript and added bun typing support by creating dualing tsconfigs for both node and bun
+
 ## 3.1.3
 
 ### Patch Changes

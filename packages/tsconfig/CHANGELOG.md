@@ -1,5 +1,11 @@
 # @cprussin/tsconfig
 
+## 5.0.0
+
+### Major Changes
+
+- 12f7302: Upgraded to the latest version of typescript and added bun typing support by creating dualing tsconfigs for both node and bun
+
 ## 4.0.2
 
 ### Patch Changes
